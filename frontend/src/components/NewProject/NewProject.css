@@ -1,0 +1,324 @@
+.EmojiPickerReact {
+    box-shadow: 0 5px 15px #00000020;
+}
+
+.epr-preview {
+    display: none !important;
+}
+
+.section-new-project {
+    padding: 40px 20px;
+}
+
+.section-new-project h1 {
+    font-weight: 300;
+    width: 80%;
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.section-new-project h1 span {
+    color: var(--primary);
+    word-wrap: break-word;
+}
+
+.section-new-project form {
+    position: relative;
+    width: 80%;
+    margin: auto;
+}
+
+.container-name-project {
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    background: var(--grey-light-3);
+    padding: 5px 10px;
+    height: 40px;
+    margin-bottom: 20px;
+}
+
+.container-name-project input {
+    font-size: 16px;
+    background: none;
+    border: none;
+    outline: none;
+    width: 90%;
+}
+
+.container-name-project span {
+    margin-left: 10px;
+    font-size: 12px;
+}
+
+.container-name-project div, .invitation-code>div {
+    height: 90%;
+    width: 1px;
+    background: var(--grey-light-2);
+    margin: 0 10px;
+}
+
+.container-name-project button {
+    font-size: 16px;
+    background: none;
+    border: none;
+    outline: none;
+    border-radius: 50px;
+    height: 90%;
+    width: 30px;
+    cursor: pointer;
+    position: relative;
+}
+
+.container-name-project button pre {
+    position: absolute;
+    right: -10px;
+    top: 40px;
+    background: #00000099;
+    padding: 5px 7px;
+    border-radius: 5px;
+    color: white;
+    display: none;
+    font-size: 12px;
+}
+
+.container-name-project button:hover {
+    background: var(--grey-light-2);
+}
+
+.container-name-project button:hover pre {
+    display: block;
+}
+
+.container-emojis {
+    width: 100%;
+    position: absolute;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.container-btn {
+    display: flex;
+    height: 60px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-top: 1px solid var(--grey-light-2);
+    background: var(--white);
+}
+
+.btn-cancel-project,
+.btn-first-stage {
+    padding: 7px 15px;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.btn-cancel-project {
+    background: var(--white);
+    min-width: 30%;
+    color: var(--black);
+    border-right: 1px solid var(--grey-light-2);
+}
+
+.btn-first-stage {
+    color: var(--primary);
+    background: var(--primary-light);
+    width: 100%;
+}
+
+.btn-cancel-project:hover {
+    background: var(--grey-light-3);
+}
+
+.btn-first-stage:hover {
+    background: #E2501630;
+}
+
+.new-stage {
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--grey-light-3);
+}
+
+.new-stage span {
+    font-size: 14px;
+}
+
+/*///////*/
+
+.message-error {
+    color: var(--detail-red);
+    padding-left: 10px;
+}
+
+.message-success {
+    color: var(--detail-green);
+    padding-left: 10px;
+}
+
+/*///////*/
+
+.stage-notice {
+    font-size: 14px;
+    color: var(--grey-light-1);
+    width: 80%;
+    display: block;
+    margin: auto;
+}
+
+.btn-new-stage {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    background: var(--grey-light-3);
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn-new-stage:hover {
+    box-shadow: 0 5px 15px #00000010;
+}
+
+.container-stage {
+    width: calc(80% + 30px);
+    margin: 30px auto;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 0 15px 15px;
+}
+
+.container-stage form {
+    width: 100%;
+    margin: 10px 0;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 1px solid var(--grey-light-2);
+    position: relative;
+}
+
+.container-stage input {
+    width: 100%;
+    padding: 7px 50px 7px 10px;
+    border: none;
+    outline: none;
+}
+
+.container-stage textarea {
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 120px;
+    max-height: 120px;
+    padding: 7px 10px;
+    border: none;
+    outline: none;
+}
+
+.container-btn-stage {
+    width: 100%;
+    padding: 5px;
+    border-top: 1px solid var(--grey-light-3);
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.container-btn-stage button {
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.counter-leter {
+    font-size: 12px;
+    color: var(--grey-light-1);
+    display: block;
+    text-align: end;
+}
+
+.container-stage .counter-leter:nth-child(2) {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--white);
+    backdrop-filter: blur(3px);
+}
+
+.container-stage .counter-leter:nth-child(4) {
+    padding: 5px 10px;
+}
+
+/*////////*/
+
+.container-invitation-code {
+    width: 80%;
+    margin: 60px auto;
+}
+
+.container-invitation-code h1{
+    font-weight: 300;
+}
+
+.invitation-code {
+    margin-top: 30px;
+    background: var(--grey-light-3);
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+    height: 40px;
+}
+
+.invitation-code span {
+    width: 100%;
+} 
+
+.copy-code {
+    font-size: 16px;
+    background: none;
+    border: none;
+    outline: none;
+    border-radius: 50px;
+    height: 90%;
+    width: 30px;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.copy-code:hover {
+    background: var(--grey-light-2);
+}
+
+.invitation-code pre {
+    position: absolute;
+    right: -10px;
+    top: 40px;
+    background: #00000099;
+    padding: 5px 7px;
+    border-radius: 5px;
+    color: white;
+    display: none;
+    font-size: 12px;
+}
+
+.copy-code:hover pre {
+    display: block;
+}
