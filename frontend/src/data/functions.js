@@ -16,10 +16,13 @@ export const requestsToServer = async (e) => {
     return method === 'POST'
         ? await fetch(backURL + file, {
             method,
+            headers: {
+                'Content-Type': 'application/json',
+            },
             body: JSON.stringify(data)
         })
         : await fetch(backURL + file, {
-            method  
+            method
         })
 }
 export const openFormNewProject = () => {

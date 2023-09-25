@@ -4,7 +4,7 @@ import { ProjectsContext } from "../../context/projectsContext"
 
 export const FormCreateStage = ({ setProgressCreateProject }) => {
 
-    const { getProject, nameProject } = useContext(ProjectsContext)
+    const { getStage, nameProject } = useContext(ProjectsContext)
 
     const [newStage, setNewStage] = useState(false)
     const [message, setMessage] = useState(null)
@@ -17,7 +17,7 @@ export const FormCreateStage = ({ setProgressCreateProject }) => {
     }
 
     useEffect(() => {
-        getProject()
+        getStage()
             .then(e => e.json())
             .then(e => {
                 e.status && setStage(e.data)

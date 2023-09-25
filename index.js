@@ -15,7 +15,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
 // Crear una conexión a la base de datos MySQL
 const dbConfig = {
     host: "localhost",
@@ -37,16 +36,9 @@ connection.connect((err) => {
 
 // Rutas 
 
-const ruta = require('./routes/ruta');
+const project = require('./routes/project');
 
-app.use('/ruta', ruta);
-
-app.post('/', async (req, res) => {
-    
-    // const { } = req.body.image;
-    
-})
-
+app.use('/project', project);
 
 module.exports = connection
 

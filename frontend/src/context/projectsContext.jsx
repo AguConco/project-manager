@@ -12,7 +12,7 @@ export const ProjectsProvider = ({ children }) => {
     const [codeProject, setCodeProject] = useState(null)
 
     const createProject = async (e) => {
-        const file = 'createProject.php'
+        const file = '/project/create'
         const method = 'POST'
         const data = { ...e, admin: user.uid }
 
@@ -20,24 +20,24 @@ export const ProjectsProvider = ({ children }) => {
     }
 
     const createStage = async (e) => {
-        const file = 'createStage.php'
+        const file = '/project/stage'
         const method = 'POST'
         const data = e
 
         return requestsToServer({ file, method, data })
     }
 
-    const getProject = async () => {
-        const file = 'getStage.php?idProject='+idProject
+    const getStage = async () => {
+        const file = '/project/stage?idProject= ' + idProject
         const method = 'GET'
 
-        return requestsToServer({ file, method, data: null})
+        return requestsToServer({ file, method, data: null })
     }
 
     return <ProjectsContext.Provider value={{
         createProject,
         createStage,
-        getProject,
+        getStage,
         setNameProject,
         setIdProject,
         setCodeProject,
