@@ -28,7 +28,7 @@ export const ProjectsProvider = ({ children }) => {
     }
 
     const getStage = async () => {
-        const file = '/project/stage?idProject= ' + idProject
+        const file = '/project/stage?idProject=' + idProject
         const method = 'GET'
 
         return requestsToServer({ file, method, data: null })

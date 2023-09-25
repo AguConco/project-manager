@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
+router.use(express.json())
 
-// Definir una ruta GET para '/ruta1'
 router.get('/', (req, res) => {
 
   const sqlQuery = "SELECT * FROM projects"; // Reemplaza "miTabla" por el nombre de tu tabla
@@ -21,8 +21,6 @@ router.get('/', (req, res) => {
   });
 
 });
-
-router.use(express.json())
 
 router.post('/create', async (req, res) => {
 
@@ -62,16 +60,21 @@ router.post('/create', async (req, res) => {
 
 router.get('/stage', (req, res) => {
 
-  let { idProject } = req.query
-
-  idProject = '"'+ idProject+ '"'
+  const { idProject } = req.query
 
   const sqlQuery = "SELECT * FROM stage WHERE id_project = ?";
 
   const connection = require('..');
 
-  connection.query(sqlQuery, idProject, (err, results) => {
-    console.log(results)
+  connection.query(sqlQuery, [idProject], (err, results) => {
+    if (err) {
+      console.error("Error al ejecutar la consulta SQL:", err);
+      res.status(500).send("Error interno del servidor", err);
+      return;
+    }
+
+    console.log(results); // Muestra los resultados en la consola para depuración.
+
     const response = {
       status: true,
       message: 'etapas encontradas exitosamente',
@@ -84,17 +87,15 @@ router.get('/stage', (req, res) => {
 
 router.post('/stage', async (req, res) => {
 
-  console.log(req.body)
-
   const { name, id, idProject, description } = req.body
 
   if (name && id && idProject && description) {
     const sqlQuery = 'INSERT INTO stage (name, id, id_project, description) VALUES (?, ?, ?, ?)';
     const values = [name, id, idProject, description];
 
-    const connection = require('..');
-
     try {
+      const connection = require('..');
+
       await connection.query(sqlQuery, values);
 
       const response = {
