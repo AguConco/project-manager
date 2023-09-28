@@ -2,7 +2,7 @@ import EmojiPicker, { EmojiStyle, SuggestionMode } from 'emoji-picker-react';
 import { useContext, useEffect, useState } from 'react';
 import { ProjectsContext } from '../../context/projectsContext';
 import { generateId } from '../../data/functions'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const FormNewProject = () => {
 
@@ -11,6 +11,7 @@ export const FormNewProject = () => {
     const [name, setName] = useState('')
     const [message, setMessage] = useState(null)
 
+    const navigate = useNavigate()
     const maxLetterName = 50
 
     const handleEmojiClick = (emojiData, event) => {
@@ -43,8 +44,8 @@ export const FormNewProject = () => {
                         setNameProject(name)
                         setIdProject(id)
                         setCodeProject(code)
+                        navigate('/project/new-project/new-stage')
                     }
-
                 } else {
                     setMessage({ text: e.message, status: e.status })
                 }
@@ -53,7 +54,11 @@ export const FormNewProject = () => {
     }
 
     useEffect(() => {
-        document.title = ''
+        document.title = 'Crear nuevo proyecto'
+
+        setNameProject(null) 
+        setIdProject(null) 
+        setCodeProject(null)
 
         const handleKeyUp = (e) => {
             e.keyCode === 27 && setOpenEmoji(false)
@@ -67,12 +72,12 @@ export const FormNewProject = () => {
     }, []);
 
     return (
-        <section className='section-new-project'>
+        <div>
             <h1>Creando el proyecto <span>{name}</span></h1>
             <form onSubmit={submitFirstStage}>
                 <div>
                     <div className='container-name-project'>
-                        <input id='name-project' type="text" placeholder="Nombre" value={name} onChange={changeName} />
+                        <input id='name-project' autoComplete='off' type="text" placeholder="Nombre" value={name} onChange={changeName} />
                         <span>{name.length}/50</span>
                         <div></div>
                         <button type="button" onClick={() => setOpenEmoji(prev => !prev)}>
@@ -98,7 +103,7 @@ export const FormNewProject = () => {
                         <EmojiPicker
                             autoFocusSearch={false}
                             onEmojiClick={handleEmojiClick}
-                            height={350}
+                            height={450}
                             width={"100%"}
                             suggestedEmojisMode={SuggestionMode.RECENT}
                             emojiStyle={EmojiStyle.NATIVE}
@@ -108,9 +113,9 @@ export const FormNewProject = () => {
                 <div className='container-btn'>
                     <Link to={'/project'} className='btn-cancel-project'>Cancelar
                     </Link>
-                    <button type='submit' className='btn-first-stage'>Siguiente</button>
+                    <button type='submit' className='btn-first-stage'>Crear proyecto</button>
                 </div>
             </form>
-        </section>
+        </div>
     )
 }

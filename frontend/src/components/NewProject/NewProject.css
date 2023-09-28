@@ -8,18 +8,32 @@
 
 .section-new-project {
     max-width: 600px;
-    margin: auto;
-    border: 1px solid var(--grey-light-2);
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px #00000020;
+    padding: 0 20px;
+    margin: 30px auto 0;
+}
+
+.section-new-project>div {
+    margin-bottom: 60px;
+    position: relative;
+    transition: .3s;
+    animation: newProject .5s 1;
+}
+
+@keyframes newProject {
+    0% {
+        opacity: 0;
+        left: 100px;
+    }
+    100% {
+        opacity: 1;
+        left: 0;
+    }
 }
 
 .section-new-project h1 {
     font-weight: 300;
     width: 100%;
-    margin-bottom: 20px;
-    padding: 30px 30px 0    ;
+    margin: 20px 0;
 }
 
 .section-new-project h1 span {
@@ -27,13 +41,9 @@
     word-wrap: break-word;
 }
 
-.section-new-project form:nth-child(2) {
+.section-new-project form {
     position: relative;
     width: 100%;
-    height: 540px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 }
 
 .container-name-project {
@@ -42,8 +52,8 @@
     border-radius: 10px;
     background: var(--grey-light-3);
     padding: 5px 10px;
-    height: 40px;
-    margin: 0 30px 20px;
+    height: 50px;
+    margin-bottom: 20px;
 }
 
 .container-name-project input {
@@ -52,6 +62,7 @@
     border: none;
     outline: none;
     width: 90%;
+    padding: 10px;
 }
 
 .container-name-project span {
@@ -59,7 +70,8 @@
     font-size: 12px;
 }
 
-.container-name-project div, .invitation-code>div {
+.container-name-project div,
+.invitation-code>div {
     height: 90%;
     width: 1px;
     background: var(--grey-light-2);
@@ -73,7 +85,7 @@
     outline: none;
     border-radius: 50px;
     height: 90%;
-    width: 30px;
+    width: 40px;
     cursor: pointer;
     position: relative;
 }
@@ -81,7 +93,7 @@
 .container-name-project button pre {
     position: absolute;
     right: -10px;
-    top: 40px;
+    top: 50px;
     background: #00000099;
     padding: 5px 7px;
     border-radius: 5px;
@@ -99,37 +111,33 @@
 }
 
 .container-emojis {
-    width: calc(100% - 30px);
-    position: absolute;
-    top: 90px;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 100%;
+    position: relative;
+    top: 30px;
 }
 
 .container-btn {
     display: flex;
     height: 60px;
-    bottom: 0;
-    left: 0;
     width: 100%;
-    border-top: 1px solid var(--grey-light-2);
     background: var(--white);
+    margin-top: 60px;
+    gap: 10px;
 }
 
 .btn-cancel-project,
 .btn-first-stage {
-    padding: 0 15px;
     border: none;
     outline: none;
     font-size: 18px;
     cursor: pointer;
+    border-radius: 10px;
 }
 
 .btn-cancel-project {
-    background: var(--white);
+    background: var(--grey-light-3);
     min-width: 30%;
     color: var(--black);
-    border-right: 1px solid var(--grey-light-2);
     text-align: center;
     line-height: 60px;
 }
@@ -138,10 +146,18 @@
     color: var(--primary);
     background: var(--primary-light);
     width: 100%;
+    text-align: center;
+    line-height: 60px;
+}
+
+.btn-first-stage i {
+    color: var(--primary);
+    font-size: 16px;
+    padding-left: 5px;
 }
 
 .btn-cancel-project:hover {
-    background: var(--grey-light-3);
+    background: var(--grey-light-2);
 }
 
 .btn-first-stage:hover {
@@ -149,26 +165,24 @@
 }
 
 .new-stage {
-    padding: 10px;
+    padding: 15px;
     margin-top: 10px;
     border-radius: 10px;
     border: 1px solid var(--grey-light-3);
 }
 
 .new-stage span {
-    font-size: 14px;
+    font-size: 16px;
 }
 
 /*///////*/
 
 .message-error {
     color: var(--detail-red);
-    padding-left: 40px;
 }
 
 .message-success {
     color: var(--detail-green);
-    padding-left: 40px;
 }
 
 /*///////*/
@@ -177,7 +191,6 @@
     font-size: 14px;
     color: var(--grey-light-1);
     width: 100%;
-    padding: 0 30px;
     display: block;
     margin: 0 auto 30px;
 }
@@ -187,7 +200,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 15px;
     font-size: 16px;
     border-radius: 10px;
     border: none;
@@ -201,17 +214,13 @@
 }
 
 .container-stage {
-    width: calc(100% - 60px);
-    margin: 0 30px;
-    height: 500px;
-    max-height: 500px;
+    width: 100%;
     overflow-y: auto;
     padding-bottom: 15px;
 }
 
 .container-stage form {
     width: 100%;
-    height: 220px !important;
     margin: 10px 0;
     overflow: hidden;
     border-radius: 10px;
@@ -221,12 +230,14 @@
 
 .container-stage input {
     width: 100%;
-    padding: 7px 50px 7px 10px;
+    padding: 10px 50px 10px 10px;
     border: none;
     outline: none;
+    font-size: 16px;
 }
 
 .container-stage textarea {
+    font-size: 16px;
     max-width: 100%;
     min-width: 100%;
     min-height: 120px;
@@ -238,7 +249,7 @@
 
 .container-btn-stage {
     width: 100%;
-    padding: 5px;
+    padding: 10px;
     border-top: 1px solid var(--grey-light-3);
     display: flex;
     gap: 10px;
@@ -247,11 +258,20 @@
 }
 
 .container-btn-stage button {
-    padding: 5px 10px;
+    padding: 7px 15px;
     border-radius: 10px;
     border: none;
     outline: none;
     cursor: pointer;
+    font-size: 16px;
+}
+
+.container-btn-stage button:nth-child(2){
+    color: var(--primary);
+}
+
+.container-btn-stage button:nth-child(1) i{
+    font-size: 14px;
 }
 
 .counter-leter {
@@ -277,11 +297,11 @@
 
 .container-invitation-code {
     width: 100%;
-    padding: 30px;
+    padding-top: 20px;
     margin-bottom: 30px;
 }
 
-.container-invitation-code h1{
+.container-invitation-code h1 {
     font-weight: 300;
     margin: 0;
     padding: 0;
@@ -292,17 +312,16 @@
     margin-top: 30px;
     background: var(--grey-light-3);
     border-radius: 10px;
-    padding: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 5px 10px;
-    height: 40px;
+    padding: 15px;
+    height: 50px;
 }
 
 .invitation-code span {
     width: 100%;
-} 
+}
 
 .copy-code {
     font-size: 16px;
@@ -310,8 +329,8 @@
     border: none;
     outline: none;
     border-radius: 50px;
-    height: 90%;
-    width: 30px;
+    height: 35px;
+    width: 40px;
     cursor: pointer;
     position: relative;
     display: flex;
@@ -326,7 +345,7 @@
 .invitation-code pre {
     position: absolute;
     right: -10px;
-    top: 40px;
+    top: 50px;
     background: #00000099;
     padding: 5px 7px;
     border-radius: 5px;

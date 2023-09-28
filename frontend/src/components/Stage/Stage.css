@@ -3,7 +3,23 @@
     gap: 15px;
     align-items: stretch;
     margin-top: 20px;
-    padding: 0 20px;
+    padding: 0 20px 5px;
+    width: calc(100vw - 300px);
+    overflow-x: auto;
+}
+
+.list-stages::-webkit-scrollbar {
+    appearance: none;
+    display: none;
+}
+.list-stages::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    border: 5px solid #ffffff;
+    background: var(--grey-light-2);
+}
+
+.list-stages:hover::-webkit-scrollbar {
+    display: block;
 }
 
 .create-new-stage {
@@ -11,6 +27,7 @@
     border-radius: 10px;
     height: 150px;
     width: 260px;
+    min-width: 260px;
     text-align: center;
     line-height: 150px;
     font-size: 18px;
@@ -19,6 +36,7 @@
 .stage {
     height: 150px;
     width: 260px;
+    min-width: 260px;
     border-radius: 10px;
     border: 1px solid var(--grey-light-2);
     padding: 15px;

@@ -12,7 +12,7 @@ export const SectionProject = () => {
             <Routes>
                 <Route path="/" element={<SectionProjectEmpty />} />
                 <Route path=":id" element={<Project />} />
-                <Route path="/new-project" element={<NewProject />} />
+                <Route path="/new-project/*" element={<NewProject />} />
             </Routes>
         </>
     )

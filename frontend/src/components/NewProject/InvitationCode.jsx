@@ -1,11 +1,13 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { ProjectsContext } from "../../context/projectsContext"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 export const InvitationCode = () => {
 
     const { codeProject, idProject } = useContext(ProjectsContext)
     const [copy, setCopy] = useState(false)
+    
+    const navigate = useNavigate()
 
     const copyCode = () => {
 
@@ -16,8 +18,12 @@ export const InvitationCode = () => {
             });
     }
 
+    useEffect(() => {
+        idProject || navigate('/project/new-project')
+    }, [])
+
     return (
-        <section className="section-new-project">
+        <div>
             <div className="container-invitation-code">
                 <h1>Código de invitacion</h1>
                 <p>Con este código podés invitar a otras personas para que formen parte del proyecto</p>
@@ -34,8 +40,8 @@ export const InvitationCode = () => {
                 </div>
             </div>
             <div className='container-btn'>
-                <Link to={'/project/'+ idProject} className='btn-first-stage'>Finalizar</Link>
+                <Link to={'/project/' + idProject} className='btn-first-stage'>Finalizar</Link>
             </div>
-        </section>
+        </div >
     )
 }
