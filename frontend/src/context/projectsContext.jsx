@@ -27,8 +27,16 @@ export const ProjectsProvider = ({ children }) => {
         return requestsToServer({ file, method, data })
     }
 
-    const getStage = async () => {
-        const file = '/project/stage?idProject=' + idProject
+    const getStage = async (e) => {
+        const file = '/project/stage?idProject=' + (idProject || e)
+        const method = 'GET'
+
+        return requestsToServer({ file, method, data: null })
+    }
+
+    const getProjects = (e) => {
+        const {admin, id} = e
+        const file = `/project?admin=${admin}&id=${id}`
         const method = 'GET'
 
         return requestsToServer({ file, method, data: null })
@@ -38,6 +46,7 @@ export const ProjectsProvider = ({ children }) => {
         createProject,
         createStage,
         getStage,
+        getProjects,
         setNameProject,
         setIdProject,
         setCodeProject,

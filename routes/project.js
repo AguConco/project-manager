@@ -5,11 +5,22 @@ router.use(express.json())
 
 router.get('/', (req, res) => {
 
-  const sqlQuery = "SELECT * FROM projects"; // Reemplaza "miTabla" por el nombre de tu tabla
+  const { admin, id } = req.query
+
+  let values = []
+  let sqlQuery = ""
+
+  if (id === '') {
+    sqlQuery = "SELECT * FROM projects WHERE admin = ?"
+    values = [admin]
+  } else {
+    sqlQuery = "SELECT * FROM projects WHERE admin = ? and id = ?"
+    values = [admin, id]
+  }
 
   const connection = require('..');
 
-  connection.query(sqlQuery, (err, results) => {
+  connection.query(sqlQuery, values, (err, results) => {
     if (err) {
       console.error("Error al ejecutar la consulta SQL:", err.message);
       res.status(500).send("Error interno del servidor");
@@ -25,6 +36,8 @@ router.get('/', (req, res) => {
 router.post('/create', async (req, res) => {
 
   const { name, code, id, date, admin } = req.body;
+
+  console.log(name)
 
   if (name && code && id && date && admin) {
     try {
@@ -73,8 +86,6 @@ router.get('/stage', (req, res) => {
       return;
     }
 
-    console.log(results); // Muestra los resultados en la consola para depuración.
-
     const response = {
       status: true,
       message: 'etapas encontradas exitosamente',
@@ -116,6 +127,10 @@ router.post('/stage', async (req, res) => {
 
     res.json(response);
   }
+});
+
+router.delete('/delete', async (req, res) => {
+
 });
 
 module.exports = router;

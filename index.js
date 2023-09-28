@@ -20,7 +20,8 @@ const dbConfig = {
     host: "localhost",
     user: "root",
     password: "",
-    database: "projects_db"
+    database: "projects_db",
+    charset: 'utf8mb4',
 };
 
 const connection = mysql.createConnection(dbConfig);
@@ -31,8 +32,12 @@ connection.connect((err) => {
         process.exit(1);
     }
     // console.log("Conexión a la base de datos establecida.");
-    
+
 });
+
+app.get('/', (req, res) => {
+    
+})
 
 // Rutas 
 

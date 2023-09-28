@@ -12,7 +12,7 @@ export function Login() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        user !== null && navigate('/project/empty')
+        user !== null && navigate('/project')
     }, [user])
 
     return (

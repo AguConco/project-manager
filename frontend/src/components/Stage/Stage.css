@@ -1,0 +1,59 @@
+.list-stages {
+    display: flex;
+    gap: 15px;
+    align-items: stretch;
+    margin-top: 20px;
+    padding: 0 20px;
+}
+
+.create-new-stage {
+    border: 2px dashed var(--grey-light-2);
+    border-radius: 10px;
+    height: 150px;
+    width: 260px;
+    text-align: center;
+    line-height: 150px;
+    font-size: 18px;
+}
+
+.stage {
+    height: 150px;
+    width: 260px;
+    border-radius: 10px;
+    border: 1px solid var(--grey-light-2);
+    padding: 15px;
+    position: relative;
+}
+
+.stage h2 {
+    max-width: 90%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-wrap: nowrap;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.stage p {
+    font-size: 13px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    pointer-events: none;
+    word-wrap: break-word;
+}
+
+.stage span {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 10px;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    background: var(--grey-dark-3);
+    text-align: center;
+    line-height: 15px;
+    color: #fff;
+}

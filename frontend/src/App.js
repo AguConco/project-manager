@@ -27,9 +27,8 @@ const App = () => {
         <ProjectsProvider>
           <Routes>
             <Route path="/" element={<Login />} />
-            <Route path="/project/:id" element={<SectionProject />} />
+            <Route path="/project/*" element={<SectionProject />} />
             <Route path="/error-database" element={<ErrorDatabase />} />
-            <Route path="/new-project" element={<NewProject />} />
           </Routes>
         </ProjectsProvider>
       </AuthProvider>

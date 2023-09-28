@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import { DataStage } from "../DataStage/DataStage"
 import { ProjectsContext } from "../../context/projectsContext"
 
-export const FormCreateStage = ({ setProgressCreateProject }) => {
+export const FormCreateStage = () => {
 
     const { getStage, nameProject } = useContext(ProjectsContext)
 
@@ -12,8 +12,6 @@ export const FormCreateStage = ({ setProgressCreateProject }) => {
 
     const submitSecondStage = (e) => {
         e.preventDefault()
-
-        !newStage && setProgressCreateProject(3)
     }
 
     useEffect(() => {
@@ -29,8 +27,8 @@ export const FormCreateStage = ({ setProgressCreateProject }) => {
         <section className='section-new-project'>
             <h1>Agrega las estapas que necesita <span>{nameProject}</span></h1>
             <p className="stage-notice">Si se te olvidan o todavía no sabes cuantas etapas va a contener tu proyecto, después podrás agregar más</p>
+            {message !== null && <span className={message.status ? 'message-success' : 'message-error'}>{message.text}</span>}
             <div className="container-stage">
-                {message !== null && <span className={message.status ? 'message-success' : 'message-error'}>{message.text}</span>}
                 {newStage
                     ? <DataStage setNewStage={setNewStage} setMessage={setMessage} />
                     : <button type="button" className="btn-new-stage" onClick={() => {

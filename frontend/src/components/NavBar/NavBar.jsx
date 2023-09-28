@@ -1,25 +1,41 @@
 import './NavBar.css'
 import notPhoto from '../../assets/img/no_photo.jpg'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../../context/authContext'
 import { Header } from '../Header/Header'
+import { ProjectsContext } from '../../context/projectsContext'
+import { Link } from 'react-router-dom'
 
 export const NavBar = () => {
 
     const { user, logOut } = useContext(AuthContext)
+    const { getProjects } = useContext(ProjectsContext)
+
+    const [projects, setPojects] = useState([])
+
+    useEffect(() => {
+        user !== null
+            && getProjects({ admin: user.uid, id: ''})
+                .then(e => e.json())
+                .then(e => setPojects(e))
+    }, [user])
 
     return (
         user !== null &&
         <div className="nav-bar">
             <Header />
-            <nav>
-                <div>
-                    <i className="fa-solid fa-diagram-project" style={{ color: "#E25016" }}></i> <span>Proyectos</span>
-                </div>
-                <ul>
-                    {/* obtener todos los proyectos */}
-                </ul>
-            </nav>
+            <div className='container-navs'>
+                <nav>
+                    <div>
+                        <i className="fa-solid fa-diagram-project" style={{ color: "#E25016" }}></i> <span>Proyectos</span>
+                    </div>
+                    <ul className='project-list'>
+                        {projects.map(e => (
+                            <li key={e.id}><Link to={'/project/' + e.id}>{e.name}</Link></li>
+                        ))}
+                    </ul>
+                </nav>
+            </div>
             <div className="user">
                 <div className="container-img-user">
                     <img src={user.photoURL ? user.photoURL : notPhoto} alt="" />

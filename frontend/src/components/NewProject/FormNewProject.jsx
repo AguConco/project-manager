@@ -2,8 +2,9 @@ import EmojiPicker, { EmojiStyle, SuggestionMode } from 'emoji-picker-react';
 import { useContext, useEffect, useState } from 'react';
 import { ProjectsContext } from '../../context/projectsContext';
 import { generateId } from '../../data/functions'
+import { Link } from 'react-router-dom';
 
-export const FormNewProject = ({ setProgressCreateProject }) => {
+export const FormNewProject = () => {
 
     const { createProject, setNameProject, setIdProject, setCodeProject } = useContext(ProjectsContext)
     const [openEmoji, setOpenEmoji] = useState(false)
@@ -37,8 +38,6 @@ export const FormNewProject = ({ setProgressCreateProject }) => {
             .then(e => {
 
                 if (e.status) {
-                    setProgressCreateProject(2)
-
                     if (e?.data) {
                         const { name, id, code } = e?.data
                         setNameProject(name)
@@ -47,7 +46,7 @@ export const FormNewProject = ({ setProgressCreateProject }) => {
                     }
 
                 } else {
-                    setMessage({text: e.message, status: e.status})
+                    setMessage({ text: e.message, status: e.status })
                 }
             })
             .catch(error => console.log(error))
@@ -71,27 +70,29 @@ export const FormNewProject = ({ setProgressCreateProject }) => {
         <section className='section-new-project'>
             <h1>Creando el proyecto <span>{name}</span></h1>
             <form onSubmit={submitFirstStage}>
-                <div className='container-name-project'>
-                    <input id='name-project' type="text" placeholder="Nombre" value={name} onChange={changeName} />
-                    <span>{name.length}/50</span>
-                    <div></div>
-                    <button type="button" onClick={() => setOpenEmoji(prev => !prev)}>
-                        {openEmoji
-                            ? (
-                                <>
-                                    <i className="fa-solid fa-times"></i>
-                                    <pre>Cerrar [Esc]</pre>
-                                </>
-                            )
-                            : (
-                                <>
-                                    <i className="fa-solid fa-face-grin-wide"></i>
-                                    <pre>Emojins</pre>
-                                </>
-                            )}
-                    </button>
+                <div>
+                    <div className='container-name-project'>
+                        <input id='name-project' type="text" placeholder="Nombre" value={name} onChange={changeName} />
+                        <span>{name.length}/50</span>
+                        <div></div>
+                        <button type="button" onClick={() => setOpenEmoji(prev => !prev)}>
+                            {openEmoji
+                                ? (
+                                    <>
+                                        <i className="fa-solid fa-times"></i>
+                                        <pre>Cerrar [Esc]</pre>
+                                    </>
+                                )
+                                : (
+                                    <>
+                                        <i className="fa-solid fa-face-grin-wide"></i>
+                                        <pre>Emojins</pre>
+                                    </>
+                                )}
+                        </button>
+                    </div>
+                    {message !== null && <span className={message.status ? 'message-success' : 'message-error'}>{message.text}</span>}
                 </div>
-                {message !== null && <span className={message.status ? 'message-success' :'message-error'}>{message.text}</span>}
                 <div className='container-emojis'>
                     {openEmoji &&
                         <EmojiPicker
@@ -105,7 +106,8 @@ export const FormNewProject = ({ setProgressCreateProject }) => {
                     }
                 </div>
                 <div className='container-btn'>
-                    <button type='button' className='btn-cancel-project' onClick={() => window.close()}>Cancelar</button>
+                    <Link to={'/project'} className='btn-cancel-project'>Cancelar
+                    </Link>
                     <button type='submit' className='btn-first-stage'>Siguiente</button>
                 </div>
             </form>

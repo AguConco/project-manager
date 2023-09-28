@@ -1,4 +1,4 @@
-import { openFormNewProject } from '../../data/functions'
+import { Link } from 'react-router-dom'
 import './SectionProjectEmpty.css'
 
 
@@ -7,7 +7,7 @@ export const SectionProjectEmpty = () => {
     return (
         <section className='section-project-empty'>
             <h1 className='title-section-project-empty'>No hay ningún proyecto seleccionado <br /> <span>Selecciona uno o elige una de las opciones</span></h1>
-            <section className='section-actions-project' onClick={openFormNewProject}>
+            <Link to={'/project/new-project'} className='section-actions-project'>
                 <svg width="200" height="200" viewBox="0 0 2656 2656" fill="none">
                     <circle cx="1328" cy="1328" r="1328" fill="#D9D9D9" />
                     <rect x="1237.99" y="563.602" width="956.568" height="1294.63" rx="114" transform="rotate(10 1237.99 563.602)" fill="#F5F5F5" stroke="#AAAAAA" stroke-width="20" stroke-dasharray="92 92" />
@@ -17,7 +17,7 @@ export const SectionProjectEmpty = () => {
                     <path className='ilustration-plus' d="M1362 1125C1362 1107.3 1347.7 1093 1330 1093C1312.3 1093 1298 1107.3 1298 1125V1269H1154C1136.3 1269 1122 1283.3 1122 1301C1122 1318.7 1136.3 1333 1154 1333H1298V1477C1298 1494.7 1312.3 1509 1330 1509C1347.7 1509 1362 1494.7 1362 1477V1333H1506C1523.7 1333 1538 1318.7 1538 1301C1538 1283.3 1523.7 1269 1506 1269H1362V1125Z" fill="#AAAAAA" />
                 </svg>
                 <p>Crea un nuevo proyecto </p>
-            </section>
+            </Link>
             <section className='section-actions-project'>
                 <svg width="200" height="200" viewBox="0 0 2656 2656" fill="none">
                     <circle cx="1328" cy="1328" r="1328" fill="#D9D9D9" />

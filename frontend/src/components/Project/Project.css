@@ -1,0 +1,75 @@
+.header-project {
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    height: 60px;
+    max-height: 60px;
+} 
+
+.name-project {
+    font-size: 28px;
+}
+
+.nav-project {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.nav-project ul {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-project ul a {
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 5px 10px;
+}
+
+.nav-project ul a i {
+    margin-right: 5px;
+}
+
+.nav-project-selected {
+    background: var(--grey-dark-3);
+    color: var(--white);
+}
+
+.nav-project-selected i {
+    color: var(--white);
+    font-size: 15px;
+}
+
+.progress-project {
+    position: relative;
+    width: 180px;
+}
+
+.progress-project div {
+    border-radius: 15px;
+    height: 5px;
+
+}
+
+.progress-total {
+    background: var(--grey-light-2);
+}
+
+.progress-completed {
+    background: var(--primary);
+    left: 0;
+    top: 0;
+    position: absolute;
+}
+
+.progress-project span {
+    position: absolute;
+    top: -15px;
+    right: 0;
+    font-size: 12px;
+    color: var(--grey-light-1);
+}
