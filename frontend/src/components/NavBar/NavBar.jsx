@@ -9,16 +9,16 @@ import { Link } from 'react-router-dom'
 export const NavBar = () => {
 
     const { user, logOut } = useContext(AuthContext)
-    const { getProjects } = useContext(ProjectsContext)
+    const { idProject, getProjects } = useContext(ProjectsContext)
 
     const [projects, setPojects] = useState([])
 
     useEffect(() => {
         user !== null
-            && getProjects({ admin: user.uid, id: ''})
+            && getProjects({ admin: user.uid, id: '' })
                 .then(e => e.json())
                 .then(e => setPojects(e))
-    }, [user])
+    }, [user, idProject])
 
     return (
         user !== null &&

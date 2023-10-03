@@ -1,10 +1,12 @@
 import { Link, useParams } from "react-router-dom"
-import { ProjectsContext } from "../../context/projectsContext"
 import { AuthContext } from "../../context/authContext"
 import { useContext, useEffect, useState } from "react"
 import './Project.css'
 import { ListStages } from "../ListStages/ListStages"
 import { Loading } from "../Loading/Loading"
+import { Members } from "../Members/Members"
+import { Notifications } from "../Notifications/Notifications"
+import { ProjectsContext } from "../../context/projectsContext"
 
 export const Project = () => {
 
@@ -13,14 +15,26 @@ export const Project = () => {
     const { id } = useParams()
 
     const [project, setPoject] = useState(null)
+    const [foundProject, setFoundProject] = useState(true)
 
     useEffect(() => {
         setPoject(null)
         user !== null
-            && getProjects({ admin: user.uid, id })
+            && getProjects({ admin: user.uid, id: id })
                 .then(e => e.json())
-                .then(e => setPoject(e[0]))
+                .then(e => e.length === 0 ? setFoundProject(false) : setPoject(e[0]))
+
+        // socket.on('selectProject', (e) => {
+        //     e.length === 0 ? setFoundProject(false) : setPoject(e[0])
+        // })
+
+        // user !== null
+        //     ? socket.emit('selectProject', { admin: user.uid, id })
+        //     : setPoject(null)
+
     }, [id, user])
+
+
 
     return (
         <section>
@@ -28,15 +42,13 @@ export const Project = () => {
                 ? <>
                     <header className="header-project">
                         <h1 className="name-project">{project.name}</h1>
-                        <span>Ajustes</span>
+                        <div className="option-project">
+                            <Notifications code={project.code} />
+                            <span>Ajustes</span>
+                        </div>
                     </header>
                     <nav className='nav-project'>
-                        <div>
-                            <Link to={"/members/" + project.code} className="members">
-                                Miembros del grupo
-                            </Link>
-                            <button>Invitar</button>
-                        </div>
+                        <Members code={project.code} />
                         <div className="progress-project">
                             <div className='progress-completed' style={{ width: (parseInt(project.progress) * 180) / 100 }}></div>
                             <div className='progress-total'></div>
@@ -45,7 +57,9 @@ export const Project = () => {
                     </nav>
                     <ListStages />
                 </>
-                : <Loading />
+                : foundProject
+                    ? <Loading />
+                    : <div className="project-not-found"><p>No se encontró el proyecto <Link to={'/project'}>Volver al inicio</Link></p></div>
             }
         </section>
 

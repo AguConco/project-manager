@@ -7,7 +7,6 @@ import { ProjectsProvider } from "./context/projectsContext";
 import { Login } from "./components/Login/Login";
 import { SectionProject } from "./components/SectionProject/SectionProject";
 import { ErrorDatabase } from "./components/ErrorDatabase/ErrorDatabase";
-import { NewProject } from "./components/NewProject/NewProject";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAIO-rkjNiaVCOZJFCGx6wRdC0BsTL2YRM",

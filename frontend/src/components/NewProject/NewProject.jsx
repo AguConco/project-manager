@@ -17,4 +17,3 @@ export const NewProject = () => {
     )
 
 }
-// http://localhost:3000/project/new-project/new-stage/finis

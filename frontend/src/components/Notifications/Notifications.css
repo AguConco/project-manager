@@ -1,0 +1,71 @@
+.container-notifications {
+    position: relative;
+}
+
+.notification-icon {
+    position: absolute;
+    height: 5px;
+    width: 5px;
+    background: var(--detail-red);
+    border-radius: 50%;
+    top: calc(25% + 2px);
+    left:   calc(25% + 2px);
+}
+
+.container-notifications button {
+    background: none;
+    border-radius: 10px;
+    height: 35px;
+    width: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+}
+
+.container-notifications button:hover {
+    background: var(--grey-light-3);
+}
+
+.container-notifications button i {
+    font-size: 18px;
+}
+
+.notifications {
+    width: 300px;
+    position: absolute;
+    top: calc(100% + 15px);
+    right: 0;
+    background: var(--white);
+    z-index: 100;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid var(--grey-light-2);
+    box-shadow: 0 5px 15px #00000020;
+}
+
+.notifications li {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.notifications li div {
+    height: 30px;
+    width: 30px;
+}
+
+.notifications li div img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+.not-notifications {
+    display: block;
+    text-align: center;
+    color: var(--grey-light-1);
+    
+}

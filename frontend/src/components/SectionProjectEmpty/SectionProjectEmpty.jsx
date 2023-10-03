@@ -18,7 +18,7 @@ export const SectionProjectEmpty = () => {
                 </svg>
                 <p>Crea un nuevo proyecto </p>
             </Link>
-            <section className='section-actions-project'>
+            <Link to={'/project/join-project'} className='section-actions-project'>
                 <svg width="200" height="200" viewBox="0 0 2656 2656" fill="none">
                     <circle cx="1328" cy="1328" r="1328" fill="#D9D9D9" />
                     <circle cx="757.5" cy="931.5" r="239.5" fill="#F5F5F5" stroke="#AAAAAA" stroke-width="20" />
@@ -29,7 +29,7 @@ export const SectionProjectEmpty = () => {
                     <path className='ilustration-group' d="M1712 1868C1384.4 2118.8 1075.17 1972.5 961.5 1868V1558.5C1006.3 1397.3 1131.17 1365.33 1188 1369.5H1514.5C1649.3 1391.1 1702.33 1504.5 1712 1558.5V1868Z" fill="#F5F5F5" stroke="#AAAAAA" stroke-width="20" />
                 </svg>
                 <p>Unirse a un proyecto </p>
-            </section>
+            </Link>
         </section>
     )
 }

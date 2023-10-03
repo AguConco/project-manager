@@ -1,13 +1,15 @@
 const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
+const http = require('http');
+const socketIo = require('socket.io');
 
 const app = express();
 const port = process.env.PORT || 4000;
+// Configuración de cors
 
 const dominioPermitido = "http://localhost:3000";
 
-// Configurar encabezados CORS utilizando el middleware cors
 const corsOptions = {
     origin: dominioPermitido,
     methods: "OPTIONS, GET, PUT, POST, DELETE",
@@ -15,7 +17,9 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-// Crear una conexión a la base de datos MySQL
+
+// Conexión a la base de datos mysql
+
 const dbConfig = {
     host: "localhost",
     user: "root",
@@ -32,24 +36,33 @@ connection.connect((err) => {
         process.exit(1);
     }
     // console.log("Conexión a la base de datos establecida.");
-
 });
-
-app.get('/', (req, res) => {
-    
-})
-
-// Rutas 
+// Rutas de la app para la parte de api
 
 const project = require('./routes/project');
 
 app.use('/project', project);
 
-module.exports = connection
+// Configuración de websocket
+
+const server = http.createServer(app);
+const configureSocket = require('./sockets/socketConfig');
+const {
+    getProject,
+    notifications,
+    memberRequests
+} = require('./sockets/eventSocket');
+
+const socketIoInstance = configureSocket(server);
+getProject(socketIoInstance);
+notifications(socketIoInstance);
+memberRequests(socketIoInstance);
+
+// Módulos que se exportan
+
+module.exports = { connection }
 
 // Iniciar el servidor
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Servidor Express escuchando en el puerto ${port}`);
 });
-
-

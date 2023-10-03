@@ -1,5 +1,5 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 
 router.use(express.json())
 
@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
     values = [admin, id]
   }
 
-  const connection = require('..');
+  const { connection } = require('..');
 
   connection.query(sqlQuery, values, (err, results) => {
     if (err) {
@@ -27,21 +27,17 @@ router.get('/', (req, res) => {
       return;
     }
 
-    // Enviar los resultados como respuesta
     res.json(results);
   });
-
 });
 
 router.post('/create', async (req, res) => {
 
   const { name, code, id, date, admin } = req.body;
 
-  console.log(name)
-
   if (name && code && id && date && admin) {
     try {
-      const connection = require('..'); // Reemplaza '..' con la ubicación correcta de tu archivo de conexión a la base de datos
+      const { connection } = require('..'); // Reemplaza '..' con la ubicación correcta de tu archivo de conexión a la base de datos
 
       // Preparar la consulta SQL con marcadores de posición
       const sqlQuery = 'INSERT INTO projects (name, code, id, date, admin) VALUES (?, ?, ?, ?, ?)';
@@ -77,7 +73,7 @@ router.get('/stage', (req, res) => {
 
   const sqlQuery = "SELECT * FROM stage WHERE id_project = ?";
 
-  const connection = require('..');
+  const { connection } = require('..');
 
   connection.query(sqlQuery, [idProject], (err, results) => {
     if (err) {
@@ -105,7 +101,7 @@ router.post('/stage', async (req, res) => {
     const values = [name, id, idProject, description];
 
     try {
-      const connection = require('..');
+      const { connection } = require('..');
 
       await connection.query(sqlQuery, values);
 
@@ -133,9 +129,8 @@ router.delete('/delete', async (req, res) => {
 
 });
 
+
 module.exports = router;
-
-
 
 
 

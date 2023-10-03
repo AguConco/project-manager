@@ -35,7 +35,7 @@
     margin-left: 15px;
     padding-left: 10px;
     border-left: 1px solid var(--grey-light-2);
-    max-height: 500px;
+    max-height: 300px;
     overflow: auto;
 }
 
@@ -47,6 +47,7 @@
     max-width: 245px;
     text-overflow: ellipsis;
     overflow: hidden;
+    text-wrap: nowrap;
 }
 
 .project-list li a:hover {

@@ -4,7 +4,7 @@ import './Header.css'
 export const Header = () => {
     return (
         <header className="header-app">
-            <button id="unite-project"> Unirse </button>
+            <Link to={'/project/join-project'} id="join-project"> Unirse </Link>
             <Link to={'/project/new-project'} id="new-project"> Nuevo proyecto </Link>
         </header>
     )

@@ -1,3 +1,19 @@
+.project-not-found {
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid var(--grey-light-2);
+    margin: 60px auto;
+    height: 80px; 
+    width: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.project-not-found a {
+    color: var(--primary);
+}
+
 .header-project {
     padding: 0 20px;
     display: flex;
@@ -72,4 +88,10 @@
     right: 0;
     font-size: 12px;
     color: var(--grey-light-1);
+}
+
+.option-project {
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
