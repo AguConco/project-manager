@@ -63,7 +63,7 @@ router.get('/code', (req, res) => {
       return;
     }
 
-    res.json(results);
+    res.json(results.length !== 0 ? results : []);
   });
 
 })

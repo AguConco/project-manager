@@ -52,7 +52,7 @@ export const Project = () => {
                     <header className="header-project">
                         <h1 className="name-project">{project.name}</h1>
                         <div className="option-project">
-                            <Notifications code={project.code} />
+                            <Notifications code={project.code} id={id} />
                             <span>Ajustes</span>
                         </div>
                     </header>

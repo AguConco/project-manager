@@ -21,7 +21,8 @@ export const JoinProject = () => {
 
         socket.on('memberRequests', (e) => {
             setMessage({ text: e.message, status: e.status })
-            socket.emit('members', code)
+            const id = e.data
+            socket.emit('notifications', {code, id})
         })
     }
 

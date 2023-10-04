@@ -47,7 +47,7 @@ export const DataStage = ({ setNewStage, setMessage }) => {
             <textarea tabIndex={2} placeholder="Descripción" onChange={changeDescription} />
             <span className="counter-leter">{description.length}/500</span>
             <div className="container-btn-stage">
-                <button type="button" tabIndex={4} onClick={() => setNewStage(false)}><i className="fa-solid fa-arrow-up"></i></button>
+                <button type="button" tabIndex={4} onClick={() => setNewStage(false)}><i className="fa-solid fa-times"></i></button>
                 <button type="submit" tabIndex={3}>Agregar</button>
             </div>
         </form>

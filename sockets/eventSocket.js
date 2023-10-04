@@ -11,19 +11,15 @@ const getMembers = (io) => {
 
 const notifications = (io) => {
     io.on('connection', (socket) => {
-        const socketId = socket.id
+        socket.on('notifications', ({ code, id }) => {
 
-        if (socketId) {
-            socket.join(socketId);
-        }
+            console.log(code,'----', id)
 
-        socket.on('notifications', (code) => {
-
-            const sqlQuery = "SELECT * FROM members WHERE code = ? and member = 'pending'"
+            const sqlQuery = "SELECT * FROM members WHERE code = ? and member = 'pending' and id_project = ?"
 
             const { connection } = require('..');
 
-            connection.query(sqlQuery, [code], (err, results) => {
+            connection.query(sqlQuery, [code, id], (err, results) => {
                 if (err) {
                     console.error("Error al ejecutar la consulta SQL:", err.message);
                     res.status(500).send("Error interno del servidor");
@@ -39,16 +35,10 @@ const notifications = (io) => {
                         code
                     })
                 });
-                if (socketId) {
-                    // io.to(socketId).emit('notifications', notification);
-                    socket.emit('notifications', notification);
-                }
+
+                io.emit('notifications', notification);
             });
         })
-    })
-
-    io.on('disconnect', () => {
-        console.log('desconectado')
     })
 }
 
@@ -91,6 +81,7 @@ const memberRequests = (io) => {
                                 const response = {
                                     status: true,
                                     message: '¡Código de invitación enviado! Espera que el administrador del proyecto te acepte',
+                                    data: projectId
                                 };
                                 io.emit('memberRequests', response);
                             }

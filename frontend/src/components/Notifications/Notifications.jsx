@@ -3,20 +3,19 @@ import './Notifications.css'
 import io from 'socket.io-client'
 import { backURL } from "../../data/constants"
 
-export const Notifications = ({ code }) => {
+export const Notifications = ({ code, id }) => {
 
     const [notifications, setNotification] = useState([])
     const [notificationsVisible, setNotificationVisble] = useState(false)
 
     const socket = io(backURL)
 
+    socket.on('notifications', (res) => {
+        setNotification(res)
+    })
+
     useEffect(() => {
-        socket.on('notifications', (res) => {
-            setNotification(res)
-        })
-
-        socket.emit('notifications', code)
-
+        socket.emit('notifications', { code, id })
     }, [])
 
     return (
