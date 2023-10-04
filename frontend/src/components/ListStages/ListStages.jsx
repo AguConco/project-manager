@@ -3,17 +3,22 @@ import { Link, useParams } from "react-router-dom"
 import { ProjectsContext } from "../../context/projectsContext"
 import { AuthContext } from "../../context/authContext"
 import { Stage } from "../Stage/Stage"
+import { DataStage } from "../DataStage/DataStage"
 
 export const ListStages = () => {
 
     const { user } = useContext(AuthContext)
-    const { getStage } = useContext(ProjectsContext)
+    const { getStage, setIdProject } = useContext(ProjectsContext)
 
     const { id } = useParams()
 
     const [listStage, setListStage] = useState([])
+    const [newStage, setNewStage] = useState(false)
+    const [message, setMessage] = useState('')
 
     useEffect(() => {
+        setIdProject(id)
+
         user !== null
             && getStage(id)
                 .then(e => e.json())
@@ -22,7 +27,10 @@ export const ListStages = () => {
 
     return (
         <div className='list-stages'>
-            <Link className="create-new-stage">Crear nueva etapa</Link>
+            {newStage
+                ? <DataStage setNewStage={setNewStage} setMessage={setMessage} />
+                : <button className="create-new-stage" onClick={() => setNewStage(true)}>Crear nueva etapa</button>
+            }
             {listStage.map(e => <Stage data={e} />)}
         </div>
     )
