@@ -42,11 +42,19 @@ export const ProjectsProvider = ({ children }) => {
         return requestsToServer({ file, method, data: null })
     }
 
+    const getProjectsByCode = (e) => {
+        const file = `/project/code?admin=${e}`
+        const method = 'GET'
+
+        return requestsToServer({ file, method, data: null })
+    }
+
     return <ProjectsContext.Provider value={{
         createProject,
         createStage,
         getStage,
         getProjects,
+        getProjectsByCode,
         setNameProject,
         setIdProject,
         setCodeProject,

@@ -14,8 +14,17 @@ router.get('/', (req, res) => {
     sqlQuery = "SELECT * FROM projects WHERE admin = ?"
     values = [admin]
   } else {
-    sqlQuery = "SELECT * FROM projects WHERE admin = ? and id = ?"
-    values = [admin, id]
+    sqlQuery = `
+    SELECT DISTINCT projects.*
+    FROM projects
+    WHERE projects.admin = ? AND projects.id = ?
+    UNION
+    SELECT DISTINCT projects.*
+    FROM projects
+    INNER JOIN members ON projects.id = members.id_project
+    WHERE members.user_id = ? AND members.member = 'true';
+    `
+    values = [admin, id, admin]
   }
 
   const { connection } = require('..');
@@ -27,9 +36,37 @@ router.get('/', (req, res) => {
       return;
     }
 
-    res.json(results);
+    const response = id === '' ? results : results.filter(e => e.id === id)
+
+    res.json(response);
   });
 });
+
+router.get('/code', (req, res) => {
+
+  const { admin } = req.query
+  const sqlQuery = `
+    SELECT projects.*, members.member
+    FROM members
+    INNER JOIN projects ON members.id_project = projects.id
+    AND members.user_id = ?
+  `;
+
+  // AND members.member = 'true'
+
+  const { connection } = require('..');
+
+  connection.query(sqlQuery, [admin], (err, results) => {
+    if (err) {
+      console.error("Error al ejecutar la consulta SQL:", err.message);
+      res.status(500).send("Error interno del servidor");
+      return;
+    }
+
+    res.json(results);
+  });
+
+})
 
 router.post('/create', async (req, res) => {
 

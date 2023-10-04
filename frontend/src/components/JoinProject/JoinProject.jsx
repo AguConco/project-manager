@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import './JoinProject.css'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../../context/authContext'
 import io from 'socket.io-client'
 import { backURL } from '../../data/constants'
@@ -34,6 +34,10 @@ export const JoinProject = () => {
                 console.error('Error al leer el portapapeles: ', error);
             });
     };
+
+    useEffect(()=> {
+        document.title = 'Unite a un proyecto'
+    },[])
 
     return (
         <section className="section-join-project">

@@ -1,5 +1,5 @@
 
-const getProject = (io) => {
+const getMembers = (io) => {
     io.on('connection', (socket) => {
 
     });
@@ -40,7 +40,8 @@ const notifications = (io) => {
                     })
                 });
                 if (socketId) {
-                    io.to(socketId).emit('notifications', notification);
+                    // io.to(socketId).emit('notifications', notification);
+                    socket.emit('notifications', notification);
                 }
             });
         })
@@ -115,7 +116,7 @@ const memberRequests = (io) => {
 }
 
 module.exports = {
-    getProject,
+    getMembers,
     notifications,
     memberRequests
 }

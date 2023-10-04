@@ -18,11 +18,20 @@ export const Project = () => {
     const [foundProject, setFoundProject] = useState(true)
 
     useEffect(() => {
+
         setPoject(null)
+        setFoundProject(true)
+
         user !== null
-            && getProjects({ admin: user.uid, id: id })
+            && getProjects({ admin: user.uid, id })
                 .then(e => e.json())
-                .then(e => e.length === 0 ? setFoundProject(false) : setPoject(e[0]))
+                .then(e => {
+                    e.length === 0 ? setFoundProject(false) : setPoject(e[0])
+                    // document.title = e[0].name
+                })
+                .finally(()=> {
+                    setFoundProject(false)
+                })
 
         // socket.on('selectProject', (e) => {
         //     e.length === 0 ? setFoundProject(false) : setPoject(e[0])

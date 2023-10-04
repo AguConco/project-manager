@@ -48,13 +48,13 @@ app.use('/project', project);
 const server = http.createServer(app);
 const configureSocket = require('./sockets/socketConfig');
 const {
-    getProject,
+    getMembers,
     notifications,
     memberRequests
 } = require('./sockets/eventSocket');
 
 const socketIoInstance = configureSocket(server);
-getProject(socketIoInstance);
+getMembers(socketIoInstance);
 notifications(socketIoInstance);
 memberRequests(socketIoInstance);
 

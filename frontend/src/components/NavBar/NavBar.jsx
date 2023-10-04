@@ -9,15 +9,30 @@ import { Link } from 'react-router-dom'
 export const NavBar = () => {
 
     const { user, logOut } = useContext(AuthContext)
-    const { idProject, getProjects } = useContext(ProjectsContext)
+    const { idProject, getProjects, getProjectsByCode } = useContext(ProjectsContext)
 
     const [projects, setPojects] = useState([])
 
     useEffect(() => {
-        user !== null
-            && getProjects({ admin: user.uid, id: '' })
-                .then(e => e.json())
-                .then(e => setPojects(e))
+        if (user !== null) {
+            Promise.all([getProjects({ admin: user.uid, id: '' }), getProjectsByCode(user.uid)])
+            .then(([projectById, projectByCode]) => {
+                return Promise.all([projectById.json(),projectByCode.json()])
+            })
+            .then(([projectById, projectByCode]) => {
+                setPojects([...projectById, ...projectByCode]);
+            })
+            .catch(error => {
+                    // Manejo de errores
+                    console.error('Error:', error);
+                });
+
+            // a[0].then(e => console.log(e))  
+
+            // getProjects({ admin: user.uid, id: '' })
+            // .then(e => e.json())
+            // .then(e => setPojects(e))
+        }
     }, [user, idProject])
 
     return (
