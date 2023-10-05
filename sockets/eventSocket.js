@@ -12,9 +12,12 @@ const getMembers = (io) => {
 const notifications = (io) => {
     io.on('connection', (socket) => {
         socket.on('notifications', ({ code, id }) => {
+            const socketCode = socket.codeProject = code
 
-            console.log(code,'----', id)
-
+            if (socketCode) {
+                socket.join(socketCode);
+            }
+            
             const sqlQuery = "SELECT * FROM members WHERE code = ? and member = 'pending' and id_project = ?"
 
             const { connection } = require('..');
@@ -28,15 +31,10 @@ const notifications = (io) => {
 
                 const notification = results.map((e) => {
                     const { user_name: userName, user_photo: userPhoto, user_id: uid, code } = e
-                    return ({
-                        userName,
-                        userPhoto,
-                        uid,
-                        code
-                    })
+                    return ({ userName, userPhoto, uid, code })
                 });
 
-                io.emit('notifications', notification);
+                io.to(socketCode).emit('notifications', notification);
             });
         })
     })
