@@ -1,12 +1,55 @@
 
 const getMembers = (io) => {
     io.on('connection', (socket) => {
+        socket.on('members', ({ code, id, uid }) => {
 
-    });
+            const { connection, findUserById } = require('..');
 
-    io.on('disconnect', () => {
-        console.log('desconectado')
-    })
+            const socketMembers = socket.membersProject = code
+
+            if (socketMembers) {
+                socket.join(socketMembers);
+            }
+            const sqlQuery = 'SELECT admin FROM projects WHERE code = ?';
+
+            connection.query(sqlQuery, [code, uid], async (err, results) => {
+                if (results.length > 0) {
+                    const admin = results[0].admin;
+                    try {
+                        const userRecord = await findUserById(admin);
+                        const { displayName: userName, photoURL: userPhoto , uid } = userRecord
+
+                        const adminProject = [{ userName, userPhoto, uid }]
+
+                        const sqlQuery = "SELECT * FROM members WHERE code = ? and member = 'true' and id_project = ?"
+
+                        connection.query(sqlQuery, [code, id], (err, results) => {
+                            if (err) {
+                                console.error("Error al ejecutar la consulta SQL:", err.message);
+                                res.status(500).send("Error interno del servidor");
+                                return;
+                            }
+
+                            const members = results.map((e) => {
+                                const { user_name: userName, user_photo: userPhoto, user_id: uid, code } = e
+                                return ({ userName, userPhoto, uid, code })
+                            });
+
+                            io.to(socketMembers).emit('members', [...members, ...adminProject]);
+                        })
+                        // Continúa con tu lógica para emitir los miembros a la sala correspondiente
+                    } catch (error) {
+                        console.error('Error al buscar usuario por UID:', error);
+                    }
+                }
+            })
+        });
+
+        // io.on('disconnect', () => {
+        //     console.log('desconectado')
+        // })
+    }
+    )
 }
 
 const notifications = (io) => {
@@ -17,7 +60,7 @@ const notifications = (io) => {
             if (socketCode) {
                 socket.join(socketCode);
             }
-            
+
             const sqlQuery = "SELECT * FROM members WHERE code = ? and member = 'pending' and id_project = ?"
 
             const { connection } = require('..');

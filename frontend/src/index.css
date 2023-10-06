@@ -21,6 +21,10 @@
   box-sizing: border-box;
 }
 
+*::selection {
+  background: #00000015;
+}
+
 html, body, #root, .app {
   width: 100%;
 }
@@ -47,6 +51,7 @@ a {
   --detail-yellow: #FFB321;
   --detail-green: #589112;
   --detail-red: #EC575A;
+  --detail-blue: #1872FA;
 }
 
 .app {

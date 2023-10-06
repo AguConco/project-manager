@@ -2,10 +2,40 @@ const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
 const http = require('http');
-const socketIo = require('socket.io');
+const { initializeApp } = require('firebase-admin/app');
+const admin = require('firebase-admin');
+
+require('dotenv').config();
+const serviceAccount = process.env.SERVICE_ACCOUNT_KEY;
+
+const firebaseConfig = {
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://<tu-proyecto>.firebaseio.com/",
+    apiKey: "AIzaSyAIO-rkjNiaVCOZJFCGx6wRdC0BsTL2YRM",
+    authDomain: "desarrollosoftware-eee5e.firebaseapp.com",
+    projectId: "desarrollosoftware-eee5e",
+    storageBucket: "desarrollosoftware-eee5e.appspot.com",
+    messagingSenderId: "39734667720",
+    appId: "1:39734667720:web:4b84afe3edd13a6f0778fd"
+};
+
+initializeApp(firebaseConfig);
+
+async function findUserById(uid) {
+    try {
+        const userRecord = await admin.auth().getUser(uid);
+        return userRecord;
+    } catch (error) {
+        console.error('Error al buscar usuario por UID:', error);
+        throw error;
+    }
+}
+
+///////////
 
 const app = express();
 const port = process.env.PORT || 4000;
+
 // Configuración de cors
 
 const dominioPermitido = "http://localhost:3000";
@@ -60,7 +90,7 @@ memberRequests(socketIoInstance);
 
 // Módulos que se exportan
 
-module.exports = { connection }
+module.exports = { connection, findUserById }
 
 // Iniciar el servidor
 server.listen(port, () => {

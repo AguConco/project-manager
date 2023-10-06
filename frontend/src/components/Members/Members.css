@@ -1,0 +1,163 @@
+.container-members {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+    background: var(--grey-light-3);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.members {
+    display: flex;
+    max-width: calc(125px - 70px);
+}
+
+.members div {
+    height: 25px;
+    width: 25px;
+    flex-shrink: 0;
+    transform: translateX(0);
+
+}
+
+.members div img {
+    border: 2px solid #ffffff;
+    border-radius: 5px;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+.members div:nth-child(2) {
+    transform: translateX(-7px);
+}
+
+.members div:nth-child(3) {
+    transform: translateX(-14px);
+}
+
+.members div:nth-child(4) {
+    transform: translateX(-21px);
+}
+
+.members div:nth-child(5) {
+    transform: translateX(-28px);
+}
+
+.members div pre {
+    position: absolute;
+    left: 0;
+    top: calc(100% + 15px);
+    font-size: 14px;
+    background: #00000099;
+    color: #ffffff;
+    border-radius: 5px;
+    padding: 3px 7px;
+    display: none;
+}
+
+.members div:hover pre {
+    display: block;
+}
+
+.members-invitation-code {
+    display: flex;
+    align-items: center;
+}
+
+.members-invitation-code button {
+    border-radius: 5px;
+    padding: 0 10px;
+    font-size: 14px;
+    cursor: pointer;
+    height: 25px;
+}
+
+.btn-invite {
+    border: none;
+    background: var(--grey-dark-3);
+    color: #ffffff;
+    margin-right: 5px;
+}
+
+.btn-invite i {
+    color: #ffffff;
+    font-size: 12px;
+    padding-left: 5px;
+}
+
+.container-option-invitation {
+    display: flex;
+    flex-wrap: nowrap;
+    animation: optionsVisibles .1s 1;
+}
+
+@keyframes optionsVisibles {
+    0% {
+        opacity: .5;
+        pointer-events: none;
+        transform: translateX(-20px);
+
+    }
+    100% {
+        opacity: 1;
+        pointer-events: all;
+        transform: translateX(0);
+    }
+}
+
+.btn-code {
+    background: none;
+    border: none;
+    color: var(--grey-dark-3);
+    position: relative;
+}
+
+.members-invitation-code span {
+    font-size: 14px;
+    display: inline-block;
+    margin: 0 5px;
+    line-height: 25px;
+}
+
+.btn-copy-code {
+    position: relative;
+    border: none;
+    background: none;
+}
+
+.btn-code pre,
+.btn-copy-code pre {
+    position: absolute;
+    left: 50%;
+    top: calc(100% + 15px);
+    transform: translateX(-50%);
+    font-size: 14px;
+    background: #00000099;
+    color: #ffffff;
+    border-radius: 5px;
+    padding: 3px 7px;
+    display: none;
+}
+
+.btn-code:hover pre,
+.btn-copy-code:hover pre {
+    display: block;
+}
+
+.btn-code:hover,
+.btn-copy-code:hover {
+    background: var(--grey-light-2);
+}
+
+.members-invitation-code .btn-back-invite {
+    border: none;
+    padding: 0 3px;
+    background: none;
+    margin-left: 5px;
+}
+
+.btn-back-invite i {
+    font-size: 12px;
+}

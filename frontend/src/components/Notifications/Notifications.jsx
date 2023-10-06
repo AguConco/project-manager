@@ -14,6 +14,12 @@ export const Notifications = ({ code, id }) => {
         setNotification(res)
     })
 
+    const acceptRequest = () => {
+    }
+
+    const rejectRequest = () => {
+    }
+
     useEffect(() => {
         socket.emit('notifications', { code, id })
     }, [])
@@ -29,9 +35,19 @@ export const Notifications = ({ code, id }) => {
                 <ul className="notifications">
                     {notifications.length !== 0
                         ? notifications.map(e => (
-                            <li key={(e) => e}>
-                                <div><img src={e.userPhoto} /></div>
-                                <span>{e.userName}</span>
+                            <li key={(e) => e} className="notification" >
+                                <div className="container-img"><img src={e.userPhoto} /></div>
+                                <p><span>{e.userName}</span> quiere unirse al proyecto</p>
+                                <div className="options-notification">
+                                    <button onClick={acceptRequest}>
+                                        <i className="fa-solid fa-check"></i>
+                                        <span>Aceptar</span>
+                                    </button>
+                                    <button onClick={rejectRequest}>
+                                        <i className="fa-solid fa-times"></i>
+                                        <span>Rechazar</span>
+                                    </button>
+                                </div>
                             </li>
                         ))
                         : <span className="not-notifications">No hay notificaciones</span>

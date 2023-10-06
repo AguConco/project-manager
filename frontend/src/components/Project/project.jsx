@@ -57,7 +57,7 @@ export const Project = () => {
                         </div>
                     </header>
                     <nav className='nav-project'>
-                        <Members code={project.code} />
+                        <Members code={project.code} id={id} />
                         <div className="progress-project">
                             <div className='progress-completed' style={{ width: (parseInt(project.progress) * 180) / 100 }}></div>
                             <div className='progress-total'></div>

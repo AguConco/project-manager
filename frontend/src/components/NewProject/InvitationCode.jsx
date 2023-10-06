@@ -6,13 +6,17 @@ export const InvitationCode = () => {
 
     const { codeProject, idProject } = useContext(ProjectsContext)
     const [copy, setCopy] = useState(false)
-    
+
     const navigate = useNavigate()
 
     const copyCode = () => {
 
+
         navigator.clipboard.writeText(codeProject)
-            .then(() => setCopy(true))
+            .then(() => {
+                setTimeout(() => setCopy(false), 5000)
+                setCopy(true)
+            })
             .catch((error) => {
                 console.error('Error al copiar el código: ', error)
             });
