@@ -1,25 +1,33 @@
+.container-list-stage {
+    position: relative;
+}
+
 .list-stages {
     display: flex;
+    justify-content: flex-start;
     gap: 15px;
-    align-items: stretch;
+    align-items: center;
     margin-top: 20px;
-    padding: 0 20px 5px;
+    padding: 0 20px 10px;
     width: calc(100vw - 300px);
     overflow-x: auto;
 }
 
+.list-stages .container-loading {
+    width: 100px;
+}
+
 .list-stages::-webkit-scrollbar {
     appearance: none;
-    display: none;
 }
 .list-stages::-webkit-scrollbar-thumb {
     border-radius: 10px;
     border: 5px solid #ffffff;
-    background: var(--grey-light-2);
+    background: var(--white);
 }
 
-.list-stages:hover::-webkit-scrollbar {
-    display: block;
+.list-stages:hover::-webkit-scrollbar-thumb {
+    background: var(--grey-light-2);
 }
 
 .create-new-stage {
@@ -32,6 +40,68 @@
     line-height: 150px;
     font-size: 18px;
     background: none;
+    cursor: pointer;
+}
+
+.container-new-stage {
+    position: absolute;
+    background: var(--white);
+    top: 0;
+    left: 0;
+    z-index: 100;
+    padding-left: 20px;
+    border-radius: 0 10px 10px 0;
+}
+
+.container-new-stage form {
+    border-radius: 10px;
+    border: 1px solid var(--grey-light-2);
+    overflow: hidden;
+    width: 400px;
+    box-shadow: 0 5px 10px #00000020;
+}
+
+.container-new-stage input {
+    width: 100%;
+    padding: 10px 50px 10px 10px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+}
+
+.container-new-stage textarea {
+    font-size: 14px;
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 120px;
+    max-height: 120px;
+    padding: 7px 10px;
+    border: none;
+    outline: none;
+}
+
+.counter-leter {
+    font-size: 12px;
+    color: var(--grey-light-1);
+    display: block;
+    text-align: end;
+}
+
+.container-new-stage .counter-leter:nth-child(2) {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--white);
+    backdrop-filter: blur(3px);
+}
+
+.container-new-stage .counter-leter:nth-child(4) {
+    padding: 5px 10px;
+}
+
+
+.create-new-stage:hover, .stage:hover {
+    box-shadow: 0 3px 10px #00000020;
 }
 
 .stage {
@@ -42,6 +112,7 @@
     border: 1px solid var(--grey-light-2);
     padding: 15px;
     position: relative;
+    cursor: pointer;
 }
 
 .stage h2 {

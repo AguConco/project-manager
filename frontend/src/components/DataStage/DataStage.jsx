@@ -1,6 +1,7 @@
 import { useContext, useState } from "react"
 import { ProjectsContext } from "../../context/projectsContext"
 import { generateId } from "../../data/functions"
+import { socket } from "../Project/project"
 
 export const DataStage = ({ setNewStage, setMessage }) => {
 
@@ -36,6 +37,7 @@ export const DataStage = ({ setNewStage, setMessage }) => {
             .then(e => {
                 setMessage({ text: e.message, status: e.status })
                 e.status && setNewStage(false)
+                socket.emit('listStage', idProject)
             })
             .catch(error => console.log(error))
     }

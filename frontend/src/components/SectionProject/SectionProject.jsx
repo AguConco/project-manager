@@ -12,7 +12,7 @@ export const SectionProject = () => {
             <NavBar />
             <Routes>
                 <Route path="/" element={<SectionProjectEmpty />} />
-                <Route path="/:id" element={<Project />} />
+                <Route path="/:id/*" element={<Project />} />
                 <Route path="/new-project/*" element={<NewProject />} />
                 <Route path="/join-project" element={<JoinProject />} />
             </Routes>

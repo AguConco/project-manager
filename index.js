@@ -81,12 +81,15 @@ const {
     getMembers,
     notifications,
     memberRequests
-} = require('./sockets/eventSocket');
+} = require('./sockets/eventMembersSocket');
+const { getListStages, getStage } = require('./sockets/eventStageSocket');
 
 const socketIoInstance = configureSocket(server);
 getMembers(socketIoInstance);
 notifications(socketIoInstance);
 memberRequests(socketIoInstance);
+getListStages(socketIoInstance)
+getStage(socketIoInstance)
 
 // Módulos que se exportan
 

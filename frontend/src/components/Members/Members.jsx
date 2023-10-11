@@ -1,9 +1,8 @@
 import './Members.css'
 import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "../../context/authContext"
-import io from 'socket.io-client'
-import { backURL } from "../../data/constants"
 import { Loading } from "../../components/Loading/Loading"
+import { socket } from '../Project/project'
 
 export const Members = ({ code, id }) => {
 
@@ -14,7 +13,6 @@ export const Members = ({ code, id }) => {
     const [showCode, setShowCode] = useState(false)
     const [optionsVisibles, setOptionsVisibles] = useState(false)
 
-    const socket = io(backURL)
 
     socket.on('members', (res) => {
         setMembers(() => [
@@ -51,7 +49,7 @@ export const Members = ({ code, id }) => {
             <div className="members">
                 {members.length !== 0
                     ? members.map(e =>
-                        <div key={e.uid}>
+                        <div className='member' key={e.uid}>
                             <img src={e.userPhoto} alt="" />
                             <pre>{e.uid === user.uid ? 'Yo' : e.userName}</pre>
                         </div>

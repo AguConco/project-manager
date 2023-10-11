@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react"
 import './Notifications.css'
-import io from 'socket.io-client'
-import { backURL } from "../../data/constants"
+import { socket } from "../Project/project"
 
 export const Notifications = ({ code, id }) => {
 
     const [notifications, setNotification] = useState([])
     const [notificationsVisible, setNotificationVisble] = useState(false)
-
-    const socket = io(backURL)
 
     socket.on('notifications', (res) => {
         setNotification(res)

@@ -60,6 +60,6 @@ export const ProjectsProvider = ({ children }) => {
         setCodeProject,
         nameProject,
         idProject,
-        codeProject
+        codeProject,
     }}>{children}</ProjectsContext.Provider>
 }

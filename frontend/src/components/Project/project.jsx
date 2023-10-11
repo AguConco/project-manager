@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom"
+import { Link, Route, Routes, useParams } from "react-router-dom"
 import { AuthContext } from "../../context/authContext"
 import { useContext, useEffect, useState } from "react"
 import './Project.css'
@@ -7,6 +7,11 @@ import { Loading } from "../Loading/Loading"
 import { Members } from "../Members/Members"
 import { Notifications } from "../Notifications/Notifications"
 import { ProjectsContext } from "../../context/projectsContext"
+import { io } from "socket.io-client"
+import { backURL } from "../../data/constants"
+import { DetailStage } from "../DetailStage/DetailStage"
+
+export const socket = io(backURL)
 
 export const Project = () => {
 
@@ -27,23 +32,12 @@ export const Project = () => {
                 .then(e => e.json())
                 .then(e => {
                     e.length === 0 ? setFoundProject(false) : setPoject(e[0])
-                    // document.title = e[0].name
+                    document.title = e[0]?.name || 'Proyecto no encontrado'
                 })
-                .finally(()=> {
+                .finally(() => {
                     setFoundProject(false)
                 })
-
-        // socket.on('selectProject', (e) => {
-        //     e.length === 0 ? setFoundProject(false) : setPoject(e[0])
-        // })
-
-        // user !== null
-        //     ? socket.emit('selectProject', { admin: user.uid, id })
-        //     : setPoject(null)
-
     }, [id, user])
-
-
 
     return (
         <section>
@@ -65,6 +59,9 @@ export const Project = () => {
                         </div>
                     </nav>
                     <ListStages />
+                    <Routes>
+                        <Route path={'/:idStage'} element={<DetailStage id={id} />} />
+                    </Routes>
                 </>
                 : foundProject
                     ? <Loading />
