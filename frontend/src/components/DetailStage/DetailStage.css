@@ -1,18 +1,9 @@
 .section-detail-stage {
     padding: 20px;
-    animation: fade .5s 1;
 }
 
-@keyframes fade {
-    0% {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
+.section-detail-stage header {
+    margin-bottom: 20px;
 }
 
 .section-detail-stage header div {
@@ -50,4 +41,13 @@
     word-wrap: break-word;
     transition: .3s;
     width: 90%;
+}
+
+.nav-task-status {
+    margin: 15px 0;
+}
+
+.nav-task-status ul{
+    display: flex;
+    gap: 10px;
 }

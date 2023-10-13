@@ -20,6 +20,7 @@
 .list-stages::-webkit-scrollbar {
     appearance: none;
 }
+
 .list-stages::-webkit-scrollbar-thumb {
     border-radius: 10px;
     border: 5px solid #ffffff;
@@ -71,10 +72,9 @@
 
 .container-new-stage textarea {
     font-size: 14px;
-    max-width: 100%;
-    min-width: 100%;
-    min-height: 120px;
-    max-height: 120px;
+    width: 100%;
+    height: 120px;
+    resize: none;
     padding: 7px 10px;
     border: none;
     outline: none;
@@ -100,7 +100,8 @@
 }
 
 
-.create-new-stage:hover, .stage:hover {
+.create-new-stage:hover,
+.stage:hover {
     box-shadow: 0 3px 10px #00000020;
 }
 
@@ -110,9 +111,16 @@
     min-width: 260px;
     border-radius: 10px;
     border: 1px solid var(--grey-light-2);
-    padding: 15px;
     position: relative;
-    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.stage a {
+    display: inline-block;
+    padding: 15px;
+    height: 100%;
 }
 
 .stage h2 {
@@ -146,4 +154,35 @@
     text-align: center;
     line-height: 15px;
     color: #fff;
+}
+
+.options-stage {
+    display: flex;
+    justify-content: flex-end;
+    gap: 3px;
+    opacity: 0;
+    transition: .3s;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+
+.options-stage button {
+    border: none;
+    border-radius: 5px;
+    background: none;
+    padding: 5px 10px;
+    min-height: 25px;
+    min-width: 30px;
+    cursor: pointer;
+    background: var(--grey-light-3);
+}
+
+.options-stage button:hover {
+    background: var(--grey-light-2);
+}
+
+.stage:hover .options-stage{
+    opacity: 1;
 }

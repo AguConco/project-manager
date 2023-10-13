@@ -14,16 +14,16 @@ export const DataStage = ({ setNewStage, setMessage }) => {
     const maxLetterDescription = 500
 
     const changeName = ({ target }) => {
-        let name = target.value
+        const name = target.value
 
         maxLetterName >= name.length && setName(name)
         setMessage(null)
     }
 
     const changeDescription = ({ target }) => {
-        let name = target.value
+        const description = target.value
 
-        maxLetterDescription >= name.length && setDescription(name)
+        maxLetterDescription >= description.length && setDescription(description)
         setMessage(null)
     }
 
@@ -46,7 +46,7 @@ export const DataStage = ({ setNewStage, setMessage }) => {
         <form className="form-data-stage" onSubmit={newStage}>
             <input tabIndex={1} type="text" placeholder="Nombre" onChange={changeName} value={name} />
             <span className="counter-leter">{name.length}/50</span>
-            <textarea tabIndex={2} placeholder="Descripción" onChange={changeDescription} />
+            <textarea tabIndex={2} placeholder="Descripción" onChange={changeDescription} value={description} />
             <span className="counter-leter">{description.length}/500</span>
             <div className="container-btn-stage">
                 <button type="button" tabIndex={4} onClick={() => setNewStage(false)}><i className="fa-solid fa-times"></i></button>

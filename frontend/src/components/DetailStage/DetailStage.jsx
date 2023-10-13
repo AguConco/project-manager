@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './DetailStage.css'
 import { socket } from '../Project/project'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 export const DetailStage = ({ id }) => {
 
@@ -26,7 +26,7 @@ export const DetailStage = ({ id }) => {
             <header>
                 <div>
                     <h2>{stage.name} <span>{stage.task_completed}/{stage.task_quantity}</span></h2>
-                    <button className='btn-new-task'>Nueva tarea</button>
+                    <button className='btn-new-task' onClick={()=> {}}>Nueva tarea</button>
                 </div>
                 <p
                     className='description-stage'
@@ -35,7 +35,17 @@ export const DetailStage = ({ id }) => {
                     {stage.description}
                 </p>
             </header>
+            <h3>Tareas</h3>
+            <nav className='nav-task-status'>
+                <ul>
+                    <li><button>Tareas</button></li>
+                    <li><button>En proceso</button></li>
+                    <li><button>Completadas</button></li>
+                </ul>
+            </nav>
+            <div>
 
+            </div>
         </section>
     )
 }

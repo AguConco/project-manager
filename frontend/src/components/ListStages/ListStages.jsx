@@ -34,13 +34,13 @@ export const ListStages = () => {
                     {/* {message !== null && <span className={message.status ? 'message-success' : 'message-error'}>{message.text}</span>} */}
                 </div>
                 }
-                <div className='list-stages'>
+                <ul className='list-stages'>
                     <button className="create-new-stage" onClick={() => setNewStage(true)}>Crear nueva etapa</button>
                     {listStage !== null
                         ? listStage.map(e => <Stage key={e.id} data={e} />)
                         : <Loading height={25} width={25} />
                     }
-                </div>
+                </ul>
             </div>
         </>
     )
