@@ -5,11 +5,11 @@ import { Stage } from "../Stage/Stage"
 import { DataStage } from "../DataStage/DataStage"
 import { socket } from "../Project/project"
 import { Loading } from "../Loading/Loading"
-import { DetailStage } from "../DetailStage/DetailStage"
+import { NewTask } from "../NewTask/NewTask"
 
 export const ListStages = () => {
 
-    const { setIdProject } = useContext(ProjectsContext)
+    const { setIdProject, newTask } = useContext(ProjectsContext)
 
     const { id } = useParams()
 
@@ -24,6 +24,17 @@ export const ListStages = () => {
     useEffect(() => {
         setIdProject(id)
         socket.emit('listStage', id)
+
+        const handleKeyUp = (e) => {
+            e.keyCode === 27 && setNewStage(false)
+        };
+
+        document.addEventListener('keyup', handleKeyUp)
+
+        return () => {
+            document.removeEventListener('keyup', handleKeyUp)
+        };
+
     }, [])
 
     return (
@@ -42,6 +53,7 @@ export const ListStages = () => {
                     }
                 </ul>
             </div>
+            {(newTask !== null && newTask.comes === "list") && <NewTask />}
         </>
     )
 }

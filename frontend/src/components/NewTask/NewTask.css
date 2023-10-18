@@ -1,0 +1,104 @@
+.section-new-task {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background: var(--white);
+    height: 450px;
+    width: 400px;
+    padding: 15px;
+    border: 1px solid var(--grey-light-2);
+    border-radius: 10px 0 0 0;
+    box-shadow: -2px -2px 10px #00000015;
+    z-index: 200;
+}
+
+.section-new-task header {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.section-new-task header h4 {
+    line-height: 30px;
+}
+
+.section-new-task header button {
+    padding: 7px 12px;
+    border-radius: 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.section-new-task header button:hover {
+    background: var(--grey-light-3);
+}
+
+.container-name-task {
+    position: relative;
+    margin-bottom: 20px;
+    height: 40px;
+}
+
+.container-name-task input {
+    padding: 10px;
+    padding-right: 55px;
+    border-radius: 10px;
+    border: 1px solid var(--grey-light-2);
+    width: 100%;
+    outline: none;
+    font-size: 16px;
+}
+
+.container-name-task span {
+    font-size: 14px;
+    color: var(--grey-light-1);
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.section-new-task form span {
+    padding-left: 10px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.priority-options {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 20px 10px;
+}
+
+.priority-options div {
+    background: var(--grey-light-3);
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.priority-options div input {
+    cursor: pointer;
+    display: inline-block;
+    margin: 10px 0 10px 10px;
+}
+
+.priority-options div label {
+    cursor: pointer;
+    padding: 10px 10px 10px 0;
+}
+
+.section-new-task form button {
+    padding: 7px 15px;
+    border-radius: 10px;
+    background: var(--primary);
+    border: none;
+    font-size: 18px;
+    color: var(--white);
+    cursor: pointer;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+}

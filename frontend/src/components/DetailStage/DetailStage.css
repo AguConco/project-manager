@@ -45,9 +45,26 @@
 
 .nav-task-status {
     margin: 15px 0;
+    border-bottom: 1px solid var(--grey-light-3);
 }
 
 .nav-task-status ul{
     display: flex;
     gap: 10px;
+}
+
+.nav-task-status ul li button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    padding: 10px;
+    cursor: pointer;
+    color: var(--grey-light-1);
+    position: relative;
+    top: 1px;
+}
+
+.nav-task-status ul li .task-state-selected {
+    border-bottom: 2px solid var(--primary);
+    color: var(--black);
 }

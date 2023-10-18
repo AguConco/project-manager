@@ -10,16 +10,18 @@ export const ProjectsProvider = ({ children }) => {
     const [nameProject, setNameProject] = useState(null)
     const [idProject, setIdProject] = useState(null)
     const [codeProject, setCodeProject] = useState(null)
+    const [newTask, setNewTask] = useState(null)
 
-    const createProject = async (e) => {
+
+    const createProject = (e) => {
         const file = '/project/create'
         const method = 'POST'
         const data = { ...e, admin: user.uid }
 
-        return await requestsToServer({ file, method, data })
-    }
+        return requestsToServer({ file, method, data })
+    }   
 
-    const createStage = async (e) => {
+    const createStage = (e) => {
         const file = '/project/stage'
         const method = 'POST'
         const data = e
@@ -27,7 +29,7 @@ export const ProjectsProvider = ({ children }) => {
         return requestsToServer({ file, method, data })
     }
 
-    const getStage = async (e) => {
+    const getStage = (e) => {
         const file = '/project/stage?idProject=' + (idProject || e)
         const method = 'GET'
 
@@ -35,7 +37,7 @@ export const ProjectsProvider = ({ children }) => {
     }
 
     const getProjects = (e) => {
-        const {admin, id} = e
+        const { admin, id } = e
         const file = `/project?admin=${admin}&id=${id}`
         const method = 'GET'
 
@@ -49,17 +51,28 @@ export const ProjectsProvider = ({ children }) => {
         return requestsToServer({ file, method, data: null })
     }
 
+    const createTask = (e) => {
+        const file = '/task/create'
+        const method = 'POST'
+        const data = e
+
+        return requestsToServer({ file, method, data })
+    }
+
     return <ProjectsContext.Provider value={{
         createProject,
         createStage,
+        createTask,
         getStage,
         getProjects,
         getProjectsByCode,
         setNameProject,
         setIdProject,
         setCodeProject,
+        setNewTask,
         nameProject,
         idProject,
         codeProject,
+        newTask
     }}>{children}</ProjectsContext.Provider>
 }

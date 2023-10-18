@@ -64,7 +64,40 @@ const getStage = (io) => {
     });
 }
 
+const getTasks = (io) => {
+    io.on('connection', (socket) => {
+        socket.on('tasks', ({ idStage, idProject, state }) => {
+
+            const socketTasks = socket.tasks = idStage 
+
+            if (socketTasks) {
+                socket.join(socketTasks);
+            }
+
+            const sqlQuery = "SELECT * FROM tasks WHERE id_project = ? and id_stage = ? and state = ?";
+
+            const { connection } = require('..');
+
+            connection.query(sqlQuery, [idProject, idStage, state], (err, results) => {
+                if (err) {
+                    console.error("Error al ejecutar la consulta SQL:", err);
+                    res.status(500).send("Error interno del servidor", err);
+                    return;
+                }
+
+                const response = {
+                    status: true,
+                    data: results,
+                };
+
+                io.to(socketTasks).emit('tasks', response);
+            })
+        });
+    });
+}
+
 module.exports = {
     getListStages,
-    getStage
+    getStage,
+    getTasks
 }

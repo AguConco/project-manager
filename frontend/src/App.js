@@ -28,6 +28,7 @@ const App = () => {
             <Route path="/" element={<Login />} />
             <Route path="/project/*" element={<SectionProject />} />
             <Route path="/error-database" element={<ErrorDatabase />} />
+            <Route path="/task/:id" element={'detalle de la tarea'} />
           </Routes>
         </ProjectsProvider>
       </AuthProvider>

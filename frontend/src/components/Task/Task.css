@@ -1,0 +1,17 @@
+.task-list{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 10px;
+}
+
+.task {
+    width: 300px;
+    border-radius: 10px;
+    border: 1px solid var(--grey-light-3);
+}
+
+.task a {
+    padding: 15px;
+    display: block;
+}
