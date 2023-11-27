@@ -53,7 +53,7 @@ const dbConfig = {
     host: "localhost",
     user: "root",
     password: "",
-    database: "projects_db",
+    database: "project_manager_db",
     charset: 'utf8mb4',
 };
 

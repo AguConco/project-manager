@@ -1,17 +1,126 @@
-.task-list{
+.task-list {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     gap: 10px;
+
 }
 
 .task {
     width: 300px;
     border-radius: 10px;
     border: 1px solid var(--grey-light-3);
+    position: relative;
+}
+
+.task:hover {
+    box-shadow: 0 5px 10px #00000020;
 }
 
 .task a {
     padding: 15px;
+    padding-bottom: 40px;
     display: block;
+}
+
+.task h5::first-letter {
+    margin-left: 15px;
+  }
+
+.priority {
+    border-radius: 50%;
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    margin-bottom: 10px;
+}
+
+.priority pre {
+    position: absolute;
+    left: calc(100% + 5px);
+    top: calc(50% - 5px);
+    font-size: 15px;
+    line-height: 10px;
+    opacity: 0;
+    transition: .3s;
+}
+
+.priority:hover pre {
+    opacity: 1;
+}
+
+.priority-high {
+    background: var(--detail-red);
+}
+
+.priority-medium {
+    background: var(--detail-green);
+}
+
+.priority-low {
+    background: var(--grey-light-2);
+}
+
+.task-date {
+    font-size: 14px;
+}
+
+.task-date>div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+.task-date>div img {
+    height: 20px;
+    width: 20px;
+    border-radius: 5px;
+}
+
+.task-date>div img:hover + pre {
+    display: block;
+}
+
+.task-date>div pre {
+    background: #00000099;
+    color: #ffffff;
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    padding: 3px 5px;
+    border-radius: 5px;
+    display: none;
+}
+
+.task-options {
+    display: flex;
+    justify-content: end;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    opacity: 0;
+    transition: .3s;
+    gap: 3px;
+}
+
+.task:hover .task-options {
+    opacity: 1;
+}
+
+.task-options button {
+    border: none;
+    background: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    background: var(--grey-light-3);
+    min-height: 25px;
+    min-width: 30px;
+    cursor: pointer;
+}
+
+.task-options button:hover {
+    background: var(--grey-light-2);
 }
