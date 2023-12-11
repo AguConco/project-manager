@@ -11,17 +11,21 @@ export const generateId = () => {
 }
 
 export const requestsToServer = async (e) => {
-    const { file, method, data } = e
+    const { route, method, data } = e
 
-    return method === 'POST'
-        ? await fetch(backURL + file, {
+    console.log(data)
+
+    if (method === 'POST' || method === 'PUT' || method === 'DELETE'){
+        return await fetch(backURL + route, {
             method,
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data)
         })
-        : await fetch(backURL + file, {
+    } else {
+        return await fetch(backURL + route, {
             method
         })
+    }
 }

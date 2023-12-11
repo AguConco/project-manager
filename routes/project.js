@@ -162,6 +162,79 @@ router.post('/stage', async (req, res) => {
   }
 });
 
+router.put('/accept', (req, res) => {
+  const { code, uid, admin } = req.body
+
+  const sqlQuery = "UPDATE members m, projects p SET m.member = 'true' WHERE m.code = ? AND m.user_id = ? AND p.admin = ? AND m.id_project = p.id";
+
+  const { connection } = require('..');
+
+  connection.query(sqlQuery, [code, uid, admin], (err, results) => {
+    if (err) {
+      console.error("Error al ejecutar la consulta SQL:", err.message);
+      res.status(500).send("Error interno del servidor");
+      return;
+    }
+
+    console.log(results)
+    if (results.affectedRows !== 0) {
+      const response = {
+        status: true,
+        message: 'Aceptado',
+      };
+
+      res.json(response);
+    } else {
+      const response = {
+        status: false,
+        message: 'Ocurrio un error, todavía no fue aceptado',
+      };
+
+      res.status(500).json(response);
+    }
+  });
+})
+
+router.delete('/reject', (req, res) => {
+  console.log(req.body)
+
+  const { code, uid, admin } = req.body
+
+  const sqlQuery = `
+  DELETE FROM members
+  WHERE code = ? AND user_id = ? AND id_project IN (
+      SELECT id FROM projects WHERE admin = ?
+  );
+`
+
+  const { connection } = require('..');
+
+  connection.query(sqlQuery, [code, uid, admin], (err, results) => {
+    if (err) {
+      console.error("Error al ejecutar la consulta SQL:", err.message);
+      res.status(500).send("Error interno del servidor");
+      return;
+    }
+
+    console.log(results)
+    if (results.affectedRows !== 0) {
+      const response = {
+        status: true,
+        message: 'Rechazado',
+      };
+
+      res.json(response);
+    } else {
+      const response = {
+        status: false,
+        message: 'Ocurrio un error, todavía no fue aceptado',
+      };
+
+      res.status(500).json(response);
+    }
+  });
+})
+
 router.delete('/delete', async (req, res) => {
 
 });

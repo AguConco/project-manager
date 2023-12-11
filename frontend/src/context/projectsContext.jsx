@@ -14,49 +14,49 @@ export const ProjectsProvider = ({ children }) => {
 
 
     const createProject = (e) => {
-        const file = '/project/create'
+        const route = '/project/create'
         const method = 'POST'
         const data = { ...e, admin: user.uid }
 
-        return requestsToServer({ file, method, data })
+        return requestsToServer({ route, method, data })
     }   
 
     const createStage = (e) => {
-        const file = '/project/stage'
+        const route = '/project/stage'
         const method = 'POST'
         const data = e
 
-        return requestsToServer({ file, method, data })
+        return requestsToServer({ route, method, data })
     }
 
     const getStage = (e) => {
-        const file = '/project/stage?idProject=' + (idProject || e)
+        const route = '/project/stage?idProject=' + (idProject || e)
         const method = 'GET'
 
-        return requestsToServer({ file, method, data: null })
+        return requestsToServer({ route, method, data: null })
     }
 
     const getProjects = (e) => {
         const { admin, id } = e
-        const file = `/project?admin=${admin}&id=${id}`
+        const route = `/project?admin=${admin}&id=${id}`
         const method = 'GET'
 
-        return requestsToServer({ file, method, data: null })
+        return requestsToServer({ route, method, data: null })
     }
 
     const getProjectsByCode = (e) => {
-        const file = `/project/code?admin=${e}`
+        const route = `/project/code?admin=${e}`
         const method = 'GET'
 
-        return requestsToServer({ file, method, data: null })
+        return requestsToServer({ route, method, data: null })
     }
 
     const createTask = (e) => {
-        const file = '/task/create'
+        const route = '/task/create'
         const method = 'POST'
         const data = e
 
-        return requestsToServer({ file, method, data })
+        return requestsToServer({ route, method, data })
     }
 
     return <ProjectsContext.Provider value={{

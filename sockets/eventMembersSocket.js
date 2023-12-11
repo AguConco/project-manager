@@ -17,7 +17,7 @@ const getMembers = (io) => {
                     const admin = results[0].admin;
                     try {
                         const userRecord = await findUserById(admin);
-                        const { displayName: userName, photoURL: userPhoto , uid } = userRecord
+                        const { displayName: userName, photoURL: userPhoto, uid } = userRecord
 
                         const adminProject = [{ userName, userPhoto, uid }]
 
@@ -150,5 +150,5 @@ const memberRequests = (io) => {
 module.exports = {
     getMembers,
     notifications,
-    memberRequests
+    memberRequests,
 }

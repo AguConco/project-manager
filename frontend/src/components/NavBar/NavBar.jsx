@@ -1,14 +1,14 @@
 import './NavBar.css'
-import notPhoto from '../../assets/img/no_photo.jpg'
 import { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../../context/authContext'
 import { Header } from '../Header/Header'
 import { ProjectsContext } from '../../context/projectsContext'
 import { Link } from 'react-router-dom'
+import { UserData } from '../UserData/UserData'
 
 export const NavBar = () => {
 
-    const { user, logOut } = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
     const { idProject, getProjects, getProjectsByCode } = useContext(ProjectsContext)
 
     const [projects, setPojects] = useState([])
@@ -57,15 +57,7 @@ export const NavBar = () => {
                     </ul>
                 </nav>
             </div>
-            <div className="user">
-                <div className="container-img-user">
-                    <img src={user.photoURL ? user.photoURL : notPhoto} alt="" />
-                </div>
-                <span className="name-user">{user.displayName}</span>
-                <div className="user-options" onClick={logOut}>
-                    <i className="fa-solid fa-ellipsis-vertical"></i>
-                </div>
-            </div>
+            <UserData />
         </div>
     )
 }

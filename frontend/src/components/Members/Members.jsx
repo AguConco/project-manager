@@ -22,8 +22,6 @@ export const Members = ({ code, id }) => {
     })
 
     const copyCode = () => {
-
-
         navigator.clipboard.writeText(code)
             .then(() => {
                 setTimeout(() => setCopy(false), 5000)

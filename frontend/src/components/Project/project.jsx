@@ -37,6 +37,7 @@ export const Project = () => {
                 .finally(() => {
                     setFoundProject(false)
                 })
+
     }, [id, user])
 
     return (
@@ -46,7 +47,7 @@ export const Project = () => {
                     <header className="header-project">
                         <h1 className="name-project">{project.name}</h1>
                         <div className="option-project">
-                            <Notifications code={project.code} id={id} />
+                            {project.admin === user.uid && <Notifications project={project} id={id} admin={user.uid} />}
                             <span>Ajustes</span>
                         </div>
                     </header>

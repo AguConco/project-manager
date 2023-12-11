@@ -17,7 +17,7 @@ router.post('/create', async (req, res) => {
 
             const response = {
                 status: true,
-                message: 'Tarea creada exitosamente',
+                message: 'Tarea creada correctamente',
             }
             res.json(response)
 

@@ -87,6 +87,7 @@ const {
 const { getListStages, getStage, getTasks } = require('./sockets/eventStageSocket')
 
 const socketIoInstance = configureSocket(server)
+
 getMembers(socketIoInstance)
 notifications(socketIoInstance)
 memberRequests(socketIoInstance)
