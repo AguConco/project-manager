@@ -19,34 +19,17 @@ export const Notifications = ({ project, id, admin }) => {
 
     })
 
-    const acceptRequest = (e) => {
-        const route = '/project/accept'
-        const method = 'PUT'
+    const acceptOrReject = ({route, method, e}) => {
         const data = { code, uid: e.uid, admin }
 
         requestsToServer({ route, method, data })
             .then(e => e.json())
             .then(e => {
-                console.log(e)
                 socket.emit('notifications', { code, id: idProject })
                 socket.emit('members', { code, id: idProject, uid: admin })
             })
     }
-
-    const rejectRequest = (e) => {
-        const route = '/project/reject'
-        const method = 'DELETE'
-        const data = { code, uid: e.uid, admin }
-
-        requestsToServer({ route, method, data })
-            .then(e => e.json())
-            .then(e => {
-                console.log(e)
-                socket.emit('notifications', { code, id: idProject })
-                socket.emit('members', { code, id: idProject, uid: admin })
-            })
-    }
-
+    
     useEffect(() => {
         socket.emit('notifications', { code, id })
     }, [])
@@ -66,11 +49,11 @@ export const Notifications = ({ project, id, admin }) => {
                                 <div className="container-img"><img src={e.userPhoto} /></div>
                                 <p><span>{e.userName}</span> quiere unirse al proyecto</p>
                                 <div className="options-notification">
-                                    <button onClick={() => acceptRequest(e)}>
+                                    <button onClick={() => acceptOrReject({e, route: '/project/accept', method: 'PUT'})}>
                                         <i className="fa-solid fa-check"></i>
                                         <span>Aceptar</span>
                                     </button>
-                                    <button onClick={() => rejectRequest(e)}>
+                                    <button onClick={() => acceptOrReject({e, route: '/project/reject', method: 'DELETE'})}>
                                         <i className="fa-solid fa-times"></i>
                                         <span>Rechazar</span>
                                     </button>

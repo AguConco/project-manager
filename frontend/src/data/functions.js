@@ -13,8 +13,6 @@ export const generateId = () => {
 export const requestsToServer = async (e) => {
     const { route, method, data } = e
 
-    console.log(data)
-
     if (method === 'POST' || method === 'PUT' || method === 'DELETE'){
         return await fetch(backURL + route, {
             method,

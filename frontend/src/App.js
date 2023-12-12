@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app"
 
 import { AuthProvider } from "./context/authContext";
 import { ProjectsProvider } from "./context/projectsContext";
+import { VideoCallProvider } from "./context/videoCallContext";
 
 import { Login } from "./components/Login/Login";
 import { SectionProject } from "./components/SectionProject/SectionProject";
@@ -23,14 +24,16 @@ const App = () => {
   return (
     <div className="app">
       <AuthProvider>
-        <ProjectsProvider>
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/project/*" element={<SectionProject />} />
-            <Route path="/error-database" element={<ErrorDatabase />} />
-            <Route path="/task/:id" element={'detalle de la tarea'} />
-          </Routes>
-        </ProjectsProvider>
+        <VideoCallProvider>
+          <ProjectsProvider>
+            <Routes>
+              <Route path="/" element={<Login />} />
+              <Route path="/project/*" element={<SectionProject />} />
+              <Route path="/task/:id" element={'detalle de la tarea'} />
+              <Route path="/error-database" element={<ErrorDatabase />} />
+            </Routes>
+          </ProjectsProvider>
+        </VideoCallProvider>
       </AuthProvider>
     </div>
   );

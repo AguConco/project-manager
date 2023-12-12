@@ -45,9 +45,9 @@ export const DetailStage = ({ id }) => {
                 </header>
                 <nav className='nav-task-status'>
                     <ul>
-                        <li><button className={taskState === '' && 'task-state-selected'} onClick={() => setTaskState('')}>Tareas</button></li>
-                        <li><button className={taskState === 'process' && 'task-state-selected'} onClick={() => setTaskState('process')}>En proceso</button></li>
-                        <li><button className={taskState === 'completed' && 'task-state-selected'} onClick={() => setTaskState('completed')}>Completadas</button></li>
+                        <li><button className={taskState === '' ? 'task-state-selected' : ''} onClick={() => setTaskState('')}>Tareas</button></li>
+                        <li><button className={taskState === 'process' ? 'task-state-selected' : ''} onClick={() => setTaskState('process')}>En proceso</button></li>
+                        <li><button className={taskState === 'completed' ? 'task-state-selected' : ''} onClick={() => setTaskState('completed')}>Completadas</button></li>
                     </ul>
                 </nav>
                 <SectionTask state={taskState} idStage={stage.id} idProject={stage.id_project} />

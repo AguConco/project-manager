@@ -10,6 +10,7 @@ import { ProjectsContext } from "../../context/projectsContext"
 import { io } from "socket.io-client"
 import { backURL } from "../../data/constants"
 import { DetailStage } from "../DetailStage/DetailStage"
+import { Webcam } from "../Webcam/Webcam"
 
 export const socket = io(backURL)
 
@@ -17,27 +18,26 @@ export const Project = () => {
 
     const { user } = useContext(AuthContext)
     const { getProjects } = useContext(ProjectsContext)
+
     const { id } = useParams()
 
-    const [project, setPoject] = useState(null)
+    const [project, setProject] = useState(null)
     const [foundProject, setFoundProject] = useState(true)
 
     useEffect(() => {
-
-        setPoject(null)
+        setProject(null)
         setFoundProject(true)
 
         user !== null
             && getProjects({ admin: user.uid, id })
                 .then(e => e.json())
                 .then(e => {
-                    e.length === 0 ? setFoundProject(false) : setPoject(e[0])
+                    e.length === 0 ? setFoundProject(false) : setProject(e[0])
                     document.title = e[0]?.name || 'Proyecto no encontrado'
                 })
                 .finally(() => {
                     setFoundProject(false)
                 })
-
     }, [id, user])
 
     return (
@@ -52,7 +52,9 @@ export const Project = () => {
                         </div>
                     </header>
                     <nav className='nav-project'>
-                        <Members code={project.code} id={id} />
+                        <div>
+                            <Members code={project.code} id={id} />
+                        </div>
                         <div className="progress-project">
                             <div className='progress-completed' style={{ width: (parseInt(project.progress) * 180) / 100 }}></div>
                             <div className='progress-total'></div>
@@ -63,6 +65,7 @@ export const Project = () => {
                     <Routes>
                         <Route path={'/:idStage'} element={<DetailStage id={id} />} />
                     </Routes>
+                    <Webcam />
                 </>
                 : foundProject
                     ? <Loading />

@@ -85,6 +85,7 @@ const {
     memberRequests
 } = require('./sockets/eventMembersSocket');
 const { getListStages, getStage, getTasks } = require('./sockets/eventStageSocket')
+const { video } = require('./sockets/videoSocket')
 
 const socketIoInstance = configureSocket(server)
 
@@ -94,6 +95,8 @@ memberRequests(socketIoInstance)
 getListStages(socketIoInstance)
 getStage(socketIoInstance)
 getTasks(socketIoInstance)
+
+video(socketIoInstance)
 
 // Módulos que se exportan
 
