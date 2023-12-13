@@ -65,6 +65,7 @@ const dbConfig = {
     password: "Concollat123$",
     database: "id21560725_project_manager_db",
     charset: 'utf8mb4',
+    port: 443,
 };
 
 // const dbConfig = {
