@@ -37,25 +37,43 @@ const port = process.env.PORT || 4000;
 
 // Configuración de cors
 
-const dominioPermitido = "http://localhost:3000"
-
 const corsOptions = {
-    origin: dominioPermitido,
+    origin: function (origin, callback) {
+        const dominiosPermitidos = [
+            "http://localhost:3000",
+            "http://169.254.111.168:3000",
+            "https://agustin-concollato.000webhostapp.com"
+        ];
+
+        if (!origin || dominiosPermitidos.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error("Acceso no permitido por CORS"));
+        }
+    },
     methods: "OPTIONS, GET, PUT, POST, DELETE",
     allowedHeaders: "Content-Type",
 };
 
-app.use(cors(corsOptions));
+app.use(cors(corsOptions));;
 
 // Conexión a la base de datos mysql
 
 const dbConfig = {
     host: "localhost",
-    user: "root",
-    password: "",
-    database: "project_manager_db",
+    user: "id21560725_root",
+    password: "Concollat123$",
+    database: "id21560725_project_manager_db",
     charset: 'utf8mb4',
 };
+
+// const dbConfig = {
+//     host: "localhost",
+//     user: "root",
+//     password: "",
+//     database: "project_manager_db",
+//     charset: 'utf8mb4',
+// };
 
 const connection = mysql.createConnection(dbConfig)
 
@@ -103,6 +121,6 @@ video(socketIoInstance)
 module.exports = { connection, findUserById }
 
 // Iniciar el servidor
-server.listen(port, () => {
+server.listen(port, '0.0.0.0',() => {
     console.log(`Servidor Express escuchando en el puerto ${port}`)
 });
