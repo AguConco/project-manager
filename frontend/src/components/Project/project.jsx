@@ -10,7 +10,6 @@ import { ProjectsContext } from "../../context/projectsContext"
 import { io } from "socket.io-client"
 import { backURL } from "../../data/constants"
 import { DetailStage } from "../DetailStage/DetailStage"
-import { Webcam } from "../Webcam/Webcam"
 
 export const socket = io(backURL)
 
@@ -53,7 +52,10 @@ export const Project = () => {
                     </header>
                     <nav className='nav-project'>
                         <div>
-                            <Members code={project.code} id={id} />
+                            <div>
+                                <Members code={project.code} id={id} />
+                                <Link to={'/videocall/'+id}>Video llamada</Link>
+                            </div>
                         </div>
                         <div className="progress-project">
                             <div className='progress-completed' style={{ width: (parseInt(project.progress) * 180) / 100 }}></div>
@@ -65,7 +67,6 @@ export const Project = () => {
                     <Routes>
                         <Route path={'/:idStage'} element={<DetailStage id={id} />} />
                     </Routes>
-                    <Webcam />
                 </>
                 : foundProject
                     ? <Loading />

@@ -59,22 +59,22 @@ app.use(cors(corsOptions));;
 
 // Conexión a la base de datos mysql
 
-const dbConfig = {
-    host: "localhost",
-    user: "id21560725_root",
-    password: "Concollat123$",
-    database: "id21560725_project_manager_db",
-    charset: 'utf8mb4',
-    port: 443,
-};
-
 // const dbConfig = {
 //     host: "localhost",
-//     user: "root",
-//     password: "",
-//     database: "project_manager_db",
+//     user: "id21560725_root",
+//     password: "Concollat123$",
+//     database: "id21560725_project_manager_db",
 //     charset: 'utf8mb4',
+//     port: 443,
 // };
+
+const dbConfig = {
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "project_manager_db",
+    charset: 'utf8mb4',
+};
 
 const connection = mysql.createConnection(dbConfig)
 
@@ -94,6 +94,13 @@ const task = require('./routes/task')
 app.use('/project', project)
 app.use('/task', task)
 
+app.get('/videocall', (req, res) => {
+    const videoId = req.query.id;
+    // Lógica para servir el video según el videoId
+    // Puedes enviar el archivo de video, redirigir a otra URL, etc.
+    res.send(`Serving video for ID: ${videoId}`);
+});
+
 // Configuración de websocket
 
 const server = http.createServer(app);
@@ -104,7 +111,6 @@ const {
     memberRequests
 } = require('./sockets/eventMembersSocket');
 const { getListStages, getStage, getTasks } = require('./sockets/eventStageSocket')
-const { video } = require('./sockets/videoSocket')
 
 const socketIoInstance = configureSocket(server)
 
@@ -115,13 +121,36 @@ getListStages(socketIoInstance)
 getStage(socketIoInstance)
 getTasks(socketIoInstance)
 
-video(socketIoInstance)
+// videollamada
+
+const socketIo = require('socket.io');
+const videoIo = socketIo(server, {
+    path: '/videocall',
+    cors: {
+        origin: function (origin, callback) {
+            const dominiosPermitidos = [
+                "http://localhost:3000",
+                "http://169.254.111.168:3000",
+                "https://agustin-concollato.000webhostapp.com"
+            ];
+
+            if (!origin || dominiosPermitidos.indexOf(origin) !== -1) {
+                callback(null, true);
+            } else {
+                callback(new Error("Acceso no permitido por CORS"));
+            }
+        },
+    }
+})
+
+const { video } = require('./sockets/videoSocket')
+video(videoIo)
 
 // Módulos que se exportan
 
 module.exports = { connection, findUserById }
 
 // Iniciar el servidor
-server.listen(port, '0.0.0.0',() => {
+server.listen(port, '0.0.0.0', () => {
     console.log(`Servidor Express escuchando en el puerto ${port}`)
 });

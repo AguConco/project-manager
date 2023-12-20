@@ -3,11 +3,11 @@ import { initializeApp } from "firebase/app"
 
 import { AuthProvider } from "./context/authContext";
 import { ProjectsProvider } from "./context/projectsContext";
-import { VideoCallProvider } from "./context/videoCallContext";
 
 import { Login } from "./components/Login/Login";
 import { SectionProject } from "./components/SectionProject/SectionProject";
 import { ErrorDatabase } from "./components/ErrorDatabase/ErrorDatabase";
+import { Videocall } from "./components/Videocall/Videocall";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAIO-rkjNiaVCOZJFCGx6wRdC0BsTL2YRM",
@@ -24,16 +24,15 @@ const App = () => {
   return (
     <div className="app">
       <AuthProvider>
-        <VideoCallProvider>
-          <ProjectsProvider>
-            <Routes>
-              <Route path="/" element={<Login />} />
-              <Route path="/project/*" element={<SectionProject />} />
-              <Route path="/task/:id" element={'detalle de la tarea'} />
-              <Route path="/error-database" element={<ErrorDatabase />} />
-            </Routes>
-          </ProjectsProvider>
-        </VideoCallProvider>
+        <ProjectsProvider>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/project/*" element={<SectionProject />} />
+            <Route path="/task/:id" element={'detalle de la tarea'} />
+            <Route path="/videocall/:id" element={<Videocall />} />
+            <Route path="/error-database" element={<ErrorDatabase />} />
+          </Routes>
+        </ProjectsProvider>
       </AuthProvider>
     </div>
   );
