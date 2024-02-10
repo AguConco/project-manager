@@ -76,6 +76,8 @@ router.post('/create', async (req, res) => {
     try {
       const { connection } = require('..'); // Reemplaza '..' con la ubicación correcta de tu archivo de conexión a la base de datos
 
+      console.log(connection)
+
       // Preparar la consulta SQL con marcadores de posición
       const sqlQuery = 'INSERT INTO projects (name, code, id, date, admin) VALUES (?, ?, ?, ?, ?)';
       const values = [name, code, id, date, admin];

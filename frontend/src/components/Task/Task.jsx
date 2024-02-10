@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom'
 import './Task.css'
+import { useContext } from 'react'
+import { AuthContext } from '../../context/authContext'
 
 export const Task = ({ task }) => {
 
-    const { name, priority, last_modification, creation_date, userName, userPhoto } = task
+    const { user } = useContext(AuthContext)
+
+    const { name, priority, last_modification, creation_date, userName, userPhoto, uid } = task
 
     const [creation, modicication] = [new Date(parseInt(creation_date)), new Date(parseInt(last_modification))] // Obtén la fecha actual
     const optionsFormat = { hour: 'numeric', minute: 'numeric', month: 'short', day: 'numeric', };
@@ -42,7 +46,7 @@ export const Task = ({ task }) => {
                         Última modificación
                         <div>
                             <img src={userPhoto} />
-                            <pre> {userName} </pre>
+                            <pre> {user.uid !== uid ? userName : 'Tú'} </pre>
                             {last_modification === '0' ? creationDate : lastModicication} hs
                         </div>
                     </span>

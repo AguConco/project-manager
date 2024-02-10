@@ -10,65 +10,59 @@ import { StreamReceptor } from './StreamReceptor';
 const socket = io(backURL, { path: '/videocall' })
 
 export const Videocall = () => {
+
     const { user } = useContext(AuthContext);
-
-
-    const [myStream, setMyStream] = useState();
-    const [usersConnected, setUsersConnected] = useState([]);
+    const videoRef = useRef(null)
     const { id } = useParams();
-    let peer;
+
+    let mediaRecorder
+    let interval;
 
     const accessCamera = () => {
         navigator.mediaDevices.getUserMedia({ video: true, audio: true })
             .then(stream => {
-                setMyStream(stream);
 
-                const streamDetails = stream
-                    ? {
-                        id: stream.id,
-                        tracks: stream.getTracks().map((track) => ({ id: track.id, kind: track.kind })),
-                        options: {
-                            video: stream.getVideoTracks()[0].getSettings(),
-                            audio: stream.getAudioTracks()[0].getSettings(),
-                        },
+                mediaRecorder = new MediaRecorder(stream);
+
+                let chunks = [];
+
+                mediaRecorder.ondataavailable = (event) => {
+                    if (event.data.size > 0) {
+                        chunks.push(event.data);
                     }
-                    : null;
+                };
 
-                peer = new Peer({ initiator: true, stream });
+                mediaRecorder.onstop = () => {
+                    const blob = new Blob(chunks, { type: 'video/webm' });
+                    const videoURL = URL.createObjectURL(blob);
 
-                peer.on('signal', (data) => {
-                    // signal = data
-                    socket.emit('video-stream', { streamDetails, user, id });
-                });
+                    videoRef.current.src = videoURL;
+                    videoRef.current.play();
 
-                socket.on('disconnect', () => {
-                    if (stream) {
-                        stream.getTracks().forEach(track => track.stop());
-                    }
-                });
+                    chunks = [];
+                    mediaRecorder.start();
+                };
+
+                interval = setInterval(() => {
+                    mediaRecorder.stop();
+                }, 5000);
+
+                mediaRecorder.start()
+
             })
             .catch((error) => {
                 alert('Sin los permisos de la cámara y el micrófono no puedes unirte a la llamada');
-            });
-    };
-
-    const blockCamera = async () => {
-        // Detener la transmisión local
-        myStream && myStream.getTracks().forEach(track => track.stop());
-
-        // Emitir la desconexión de la transmisión
-        socket.emit('video-stream', { streamDetails: null, user, id });
-
-    };
-
-    socket.on('users-online', (users) => {
-        setUsersConnected(users)
-    })
+            })
+    }
 
     const disconnectVideocall = () => socket.emit('user-disconnected', { userId: user?.uid, id });
 
     window.onbeforeunload = () => {
         disconnectVideocall()
+        if (mediaRecorder.state === 'recording') {
+            mediaRecorder.stop();
+        }
+        clearInterval(interval);
     }
 
     useEffect(() => {
@@ -86,14 +80,19 @@ export const Videocall = () => {
         <section className='section-videocall'>
             <section className="section-videocall">
                 <div className='container-video'>
-                    {usersConnected.map((e) => <StreamReceptor key={e.uid} data={e} socket={socket}/>)}
+                    <video ref={videoRef} height={300} width={400} autoPlay ></video>
                 </div>
                 <ul className='options-videocall'>
                     <li><button onClick={accessCamera}><i className="fa-solid fa-video"></i></button></li>
-                    <li><button onClick={blockCamera}><i className="fa-solid fa-video-slash"></i></button></li>
+                    <li><button onClick={() => mediaRecorder.stop()}><i className="fa-solid fa-video-slash"></i></button></li>
                     <li><Link to={'/project/' + id}><button><i className="fa-solid fa-phone-slash"></i></button></Link></li>
                 </ul>
             </section>
         </section>
     );
+
+
 };
+
+
+

@@ -19,7 +19,6 @@ export const DetailStage = ({ id }) => {
 
     socket.on('stage', (e) => setStage(e.data[0]))
 
-
     useEffect(() => {
         setStage(null)
         setNewTask(null)

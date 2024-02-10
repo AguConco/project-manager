@@ -49,7 +49,7 @@ export const Members = ({ code, id }) => {
                     ? members.map(e =>
                         <div className='member' key={e.uid}>
                             <img src={e.userPhoto} alt="" />
-                            <pre>{e.uid === user.uid ? 'Yo' : e.userName}</pre>
+                            <pre>{e.uid === user.uid ? 'Tú' : e.userName}</pre>
                         </div>
                     )
                     :

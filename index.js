@@ -41,6 +41,7 @@ const corsOptions = {
     origin: function (origin, callback) {
         const dominiosPermitidos = [
             "http://localhost:3000",
+            "http://localhost:3001",
             "http://169.254.111.168:3000",
             "https://agustin-concollato.000webhostapp.com"
         ];
@@ -60,13 +61,12 @@ app.use(cors(corsOptions));;
 // Conexión a la base de datos mysql
 
 // const dbConfig = {
-//     host: "localhost",
-//     user: "id21560725_root",
-//     password: "Concollat123$",
-//     database: "id21560725_project_manager_db",
-//     charset: 'utf8mb4',
-//     port: 443,
-// };
+//     host: "roundhouse.proxy.rlwy.net",
+//     user: "root",
+//     password: "21ec-B5Af5b31b6E5GhgGDef4hD6aHdg",
+//     database: "railway",
+//     port: 18421
+// }
 
 const dbConfig = {
     host: "localhost",
@@ -74,7 +74,8 @@ const dbConfig = {
     password: "",
     database: "project_manager_db",
     charset: 'utf8mb4',
-};
+    port: 3306
+}
 
 const connection = mysql.createConnection(dbConfig)
 
@@ -83,7 +84,7 @@ connection.connect((err) => {
         console.error("Error al conectar a la base de datos:", err.message)
         process.exit(1);
     }
-    // console.log("Conexión a la base de datos establecida.");
+    console.log("Conexión a la base de datos establecida.");
 })
 
 // Rutas de la app para la parte de api
@@ -93,13 +94,6 @@ const task = require('./routes/task')
 
 app.use('/project', project)
 app.use('/task', task)
-
-app.get('/videocall', (req, res) => {
-    const videoId = req.query.id;
-    // Lógica para servir el video según el videoId
-    // Puedes enviar el archivo de video, redirigir a otra URL, etc.
-    res.send(`Serving video for ID: ${videoId}`);
-});
 
 // Configuración de websocket
 
