@@ -8,6 +8,8 @@ import { Login } from "./components/Login/Login";
 import { SectionProject } from "./components/SectionProject/SectionProject";
 import { ErrorDatabase } from "./components/ErrorDatabase/ErrorDatabase";
 import { Videocall } from "./components/Videocall/Videocall";
+import { NavBar } from "./components/NavBar/NavBar";
+import { Chat } from "./components/Chat/Chat";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAIO-rkjNiaVCOZJFCGx6wRdC0BsTL2YRM",
@@ -25,9 +27,12 @@ const App = () => {
     <div className="app">
       <AuthProvider>
         <ProjectsProvider>
+            <NavBar />
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/project/*" element={<SectionProject />} />
+            <Route path="/settings/:id" element={'ajustes'} />
+            <Route path="/chat/:id" element={<Chat />} />
             <Route path="/task/:id" element={'detalle de la tarea'} />
             <Route path="/videocall/:id" element={<Videocall />} />
             <Route path="/error-database" element={<ErrorDatabase />} />

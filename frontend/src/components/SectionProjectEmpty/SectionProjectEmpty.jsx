@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import './SectionProjectEmpty.css'
 
-
 export const SectionProjectEmpty = () => {
 
     return (

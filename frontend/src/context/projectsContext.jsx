@@ -19,7 +19,7 @@ export const ProjectsProvider = ({ children }) => {
         const data = { ...e, admin: user.uid }
 
         return requestsToServer({ route, method, data })
-    }   
+    }
 
     const createStage = (e) => {
         const route = '/project/stage'
@@ -59,10 +59,19 @@ export const ProjectsProvider = ({ children }) => {
         return requestsToServer({ route, method, data })
     }
 
+    const deleteProject = (e) => {
+        const route = '/project/delete'
+        const method = 'DELETE'
+        const data = { id: e }
+
+        return requestsToServer({ route, method, data })
+    }
+
     return <ProjectsContext.Provider value={{
         createProject,
         createStage,
         createTask,
+        deleteProject,
         getStage,
         getProjects,
         getProjectsByCode,

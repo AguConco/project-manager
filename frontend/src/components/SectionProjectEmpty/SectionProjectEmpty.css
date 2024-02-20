@@ -34,11 +34,13 @@
     cursor: pointer;
     border-radius: 10px;
     border: 1px solid var(--grey-light-3);
+    transition: .3s;
 }
 
 .section-actions-project:hover {
     box-shadow: 0 5px 15px #00000010;
     border: 1px solid var(--grey-light-2);
+    transform: scale(1.02);
 }
 
 .section-actions-project:hover .ilustration-plus{

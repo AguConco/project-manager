@@ -44,6 +44,29 @@ export const Members = ({ code, id }) => {
 
     return (
         <div className="container-members">
+            <div className="members-invitation-code">
+                {optionsVisibles
+                    && <div className='container-option-invitation'>
+                        <p>
+                            <span>
+                                {code}
+                                <button className='btn-copy-code' onClick={copyCode}>
+                                    {copy
+                                        ? <>
+                                            <i className="fa-solid fa-copy"></i><pre>Copiado</pre>
+                                        </>
+                                        : <>
+                                            <i className="fa-regular fa-copy"></i><pre>Copiar</pre>
+                                        </>
+                                    }
+                                </button>
+                            </span>
+                        </p>
+                        <button className='btn-back-invite' onClick={optionsInvitation}><i className="fa-solid fa-angle-up"></i></button>
+                    </div>
+                }
+                <button className='btn-invite' onClick={optionsInvitation}>Invitar<i className="fa-solid fa-user-plus"></i></button>
+            </div>
             <div className="members">
                 {members.length !== 0
                     ? members.map(e =>
@@ -54,25 +77,6 @@ export const Members = ({ code, id }) => {
                     )
                     :
                     <Loading height={20} width={20} />
-                }
-            </div>
-            <div className="members-invitation-code">
-                <button className='btn-invite' onClick={optionsInvitation}>Invitar<i className="fa-solid fa-user-plus"></i></button>
-                {optionsVisibles
-                    && <div className='container-option-invitation'>
-                        {showCode ? <span>{code}</span> : <button className='btn-code' onClick={() => setShowCode(!showCode)}> Código<pre>Ver</pre></button>}
-                        <button className='btn-copy-code' onClick={copyCode}>
-                            {copy
-                                ? <>
-                                    <i className="fa-solid fa-copy"></i><pre>Copiado</pre>
-                                </>
-                                : <>
-                                    <i className="fa-regular fa-copy"></i><pre>Copiar</pre>
-                                </>
-                            }
-                        </button>
-                        <button className='btn-back-invite' onClick={optionsInvitation}><i className="fa-solid fa-angle-left"></i></button>
-                    </div>
                 }
             </div>
         </div>

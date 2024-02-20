@@ -9,7 +9,7 @@ import { Notifications } from "../Notifications/Notifications"
 import { ProjectsContext } from "../../context/projectsContext"
 import { io } from "socket.io-client"
 import { backURL } from "../../data/constants"
-import { DetailStage } from "../DetailStage/DetailStage"
+import { DataStage } from "../DataStage/DataStage"
 
 export const socket = io(backURL)
 
@@ -22,10 +22,14 @@ export const Project = () => {
 
     const [project, setProject] = useState(null)
     const [foundProject, setFoundProject] = useState(true)
+    const [newStage, setNewStage] = useState(false)
+    const [message, setMessage] = useState('')
+
 
     useEffect(() => {
         setProject(null)
         setFoundProject(true)
+        newStage && setNewStage(false)
 
         user !== null
             && getProjects({ admin: user.uid, id })
@@ -37,6 +41,17 @@ export const Project = () => {
                 .finally(() => {
                     setFoundProject(false)
                 })
+
+
+        const handleKeyUp = (e) => {
+            e.keyCode === 27 && setNewStage(false)
+        };
+
+        document.addEventListener('keyup', handleKeyUp)
+
+        return () => {
+            document.removeEventListener('keyup', handleKeyUp)
+        };
     }, [id, user])
 
     return (
@@ -44,29 +59,43 @@ export const Project = () => {
             {project !== null
                 ? <>
                     <header className="header-project">
-                        <h1 className="name-project">{project.name}</h1>
-                        <div className="option-project">
-                            {project.admin === user.uid && <Notifications project={project} id={id} admin={user.uid} />}
-                            <span>Ajustes</span>
-                        </div>
-                    </header>
-                    <nav className='nav-project'>
                         <div>
-                            <div>
-                                <Members code={project.code} id={id} />
-                                <Link to={'/videocall/'+id}>Video llamada</Link>
+                            <h1 className="name-project">{project.name}</h1>
+                            <div className="option-project">
+                                {project.admin === user.uid && <Notifications project={project} id={id} admin={user.uid} />}
+                                <Link to={'/settings/' + id}>Ajustes</Link>
                             </div>
                         </div>
-                        <div className="progress-project">
-                            <div className='progress-completed' style={{ width: (parseInt(project.progress) * 180) / 100 }}></div>
-                            <div className='progress-total'></div>
-                            <span>{project.progress}%</span>
+                        <div>
+                            <nav className='nav-project'>
+                                {/* <Link to={'/videocall/' + id}>Video llamada</Link> */}
+                                <button className="create-new-stage" onClick={() => setNewStage(true)}>Crear nueva categoría</button>
+                                {newStage
+                                    && <div className="container-new-stage">
+                                        <DataStage setNewStage={setNewStage} setMessage={setMessage} />
+                                        {(message !== null && !message.status) && <span className='message-error'>{message.text}</span>}
+                                    </div>
+                                }
+                                <ul>
+                                    <li><Link to={'/project/' + id}>Actividades</Link></li>
+                                    <li><Link to={`/chat/${id}`}>Chat</Link></li>
+                                </ul>
+                            </nav>
+                            <div className="info-project">
+                                <Members code={project.code} id={id} />
+                                <div className="progress-project">
+                                    <div className='progress-completed' style={{ width: (parseInt(project.progress) * 180) / 100 }}></div>
+                                    <div className='progress-total'></div>
+                                    <span>{project.progress}%</span>
+                                </div>
+                            </div>
                         </div>
-                    </nav>
-                    <ListStages />
+                    </header>
                     <Routes>
-                        <Route path={'/:idStage'} element={<DetailStage id={id} />} />
+                        <Route path={'/'} element={<ListStages />} />
+                        {/* <Route path={'/chat'} element={'hola este es el chat'} /> */}
                     </Routes>
+
                 </>
                 : foundProject
                     ? <Loading />

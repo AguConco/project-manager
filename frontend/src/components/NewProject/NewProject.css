@@ -22,11 +22,11 @@
 @keyframes newProject {
     0% {
         opacity: 0;
-        left: 100px;
+        top: 40px;
     }
     100% {
         opacity: 1;
-        left: 0;
+        top: 0;
     }
 }
 
@@ -39,6 +39,12 @@
 .section-new-project h1 span {
     color: var(--primary);
     word-wrap: break-word;
+}
+
+.section-new-project h3 {
+    font-weight: 300;
+    font-size: 16px;
+    margin-bottom: 15px;
 }
 
 .section-new-project form {
@@ -228,7 +234,7 @@
     position: relative;
 }
 
-.container-stage input {
+.container-stage input[type="text"]{
     width: 100%;
     padding: 10px 50px 10px 10px;
     border: none;

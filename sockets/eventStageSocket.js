@@ -67,7 +67,7 @@ const getStage = (io) => {
 
 const getTasks = (io) => {
     io.on('connection', (socket) => {
-        socket.on('tasks', ({ idStage, idProject, state }) => {
+        socket.on('tasks', ({ idStage, idProject }) => {
 
             const socketTasks = socket.tasks = idStage
 
@@ -75,11 +75,11 @@ const getTasks = (io) => {
                 socket.join(socketTasks);
             }
 
-            const sqlQuery = "SELECT * FROM tasks WHERE id_project = ? and id_stage = ? and state = ? ORDER BY last_modification DESC";
+            const sqlQuery = "SELECT * FROM tasks WHERE id_project = ? ORDER BY last_modification DESC"; // and id_stage = ?
 
             const { connection, findUserById } = require('..');
 
-            connection.query(sqlQuery, [idProject, idStage, state], async (err, results) => {
+            connection.query(sqlQuery, [idProject], async (err, results) => { // idStage
                 if (err) {
                     console.error("Error al ejecutar la consulta SQL:", err);
                     res.status(500).send("Error interno del servidor", err);

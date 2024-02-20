@@ -76,8 +76,6 @@ router.post('/create', async (req, res) => {
     try {
       const { connection } = require('..'); // Reemplaza '..' con la ubicación correcta de tu archivo de conexión a la base de datos
 
-      console.log(connection)
-
       // Preparar la consulta SQL con marcadores de posición
       const sqlQuery = 'INSERT INTO projects (name, code, id, date, admin) VALUES (?, ?, ?, ?, ?)';
       const values = [name, code, id, date, admin];
@@ -133,11 +131,11 @@ router.get('/stage', (req, res) => {
 
 router.post('/stage', async (req, res) => {
 
-  const { name, id, idProject, description } = req.body
+  const { name, id, idProject, description, color } = req.body
 
-  if (name && id && idProject && description) {
-    const sqlQuery = 'INSERT INTO stage (name, id, id_project, description) VALUES (?, ?, ?, ?)';
-    const values = [name, id, idProject, description];
+  if (name && id && idProject) {
+    const sqlQuery = 'INSERT INTO stage (name, id, id_project, description, color) VALUES (?, ?, ?, ?, ?)';
+    const values = [name, id, idProject, description, color];
 
     try {
       const { connection } = require('..');
@@ -198,7 +196,6 @@ router.put('/accept', (req, res) => {
 })
 
 router.delete('/reject', (req, res) => {
-  console.log(req.body)
 
   const { code, uid, admin } = req.body
 
@@ -218,7 +215,6 @@ router.delete('/reject', (req, res) => {
       return;
     }
 
-    console.log(results)
     if (results.affectedRows !== 0) {
       const response = {
         status: true,
@@ -238,7 +234,41 @@ router.delete('/reject', (req, res) => {
 })
 
 router.delete('/delete', async (req, res) => {
+  const { id } = req.body
 
+  const sqlQuery = `
+  DELETE projects, stage, tasks
+  FROM projects
+  LEFT JOIN stage ON projects.id = stage.id_project
+  LEFT JOIN tasks ON projects.id = tasks.id_project
+  WHERE projects.id = ?;
+`
+  const { connection } = require('..');
+
+  
+  connection.query(sqlQuery, [id], (err, results) => {
+    if (err) {
+      console.error("Error al ejecutar la consulta SQL:", err.message);
+      res.status(500).send("Error interno del servidor");
+      return;
+    }
+
+    if (results.affectedRows !== 0) {
+      const response = {
+        status: true,
+        message: 'Proyecto eliminado',
+      };
+
+      res.json(response);
+    } else {
+      const response = {
+        status: false,
+        message: 'Ocurrio un error, no se pudo eliminar',
+      };
+
+      res.status(500).json(response);
+    }
+  });
 });
 
 

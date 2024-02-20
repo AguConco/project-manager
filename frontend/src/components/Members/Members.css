@@ -3,20 +3,17 @@
     align-items: center;
     gap: 15px;
     position: relative;
-    background: var(--grey-light-3);
-    border-radius: 10px;
-    padding: 10px;
     z-index: 110;
 }
 
 .members {
     display: flex;
-    max-width: calc(125px - 70px);
+    border-radius: 10px;
 }
 
 .member {
-    height: 25px;
-    width: 25px;
+    height: 30px;
+    width: 30px;
     flex-shrink: 0;
     transform: translateX(0);
 
@@ -48,7 +45,8 @@
 
 .member pre {
     position: absolute;
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
     top: calc(100% + 15px);
     font-size: 14px;
     background: #00000099;
@@ -65,61 +63,75 @@
 .members-invitation-code {
     display: flex;
     align-items: center;
+    gap: 5px;
+    position: relative;
 }
 
 .members-invitation-code button {
     border-radius: 5px;
-    padding: 0 10px;
     font-size: 14px;
     cursor: pointer;
-    height: 25px;
 }
 
 .btn-invite {
     border: none;
-    background: var(--grey-dark-3);
-    color: #ffffff;
-    margin-right: 5px;
+    color: var(--grey-dark-3);
+    background: none;
+    border: 1px solid var(--grey-light-1);
+    padding: 5px 10px;
 }
 
 .btn-invite i {
-    color: #ffffff;
+    color: var(--grey-dark-3);
     font-size: 12px;
     padding-left: 5px;
 }
 
 .container-option-invitation {
     display: flex;
-    flex-wrap: nowrap;
+    flex-direction: column;
     animation: optionsVisibles .1s 1;
+    position: absolute;
+    top: calc(100% + 15px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    border: 1px solid var(--grey-light-2);
+    border-radius: 5px;
+    padding: 10px 15px;
+    box-shadow: 0 10px 15px #00000010;
+    z-index: 1000;
 }
 
 @keyframes optionsVisibles {
     0% {
         opacity: .5;
         pointer-events: none;
-        transform: translateX(-20px);
+        transform: translate(-50%,-5px);
 
     }
     100% {
         opacity: 1;
         pointer-events: all;
-        transform: translateX(0);
+        transform: translate(-50%,0);
     }
 }
 
-.btn-code {
-    background: none;
-    border: none;
-    color: var(--grey-dark-3);
-    position: relative;
+.members-invitation-code p {
+    font-size: 14px;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
 }
 
 .members-invitation-code span {
-    font-size: 14px;
-    display: inline-block;
-    margin: 0 5px;
-    line-height: 25px;
+    background: var(--grey-light-3);
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    gap: 10px;
 }
 
 .btn-copy-code {
@@ -128,7 +140,6 @@
     background: none;
 }
 
-.btn-code pre,
 .btn-copy-code pre {
     position: absolute;
     left: 50%;
@@ -142,21 +153,13 @@
     display: none;
 }
 
-.btn-code:hover pre,
 .btn-copy-code:hover pre {
     display: block;
 }
 
-.btn-code:hover,
-.btn-copy-code:hover {
-    background: var(--grey-light-2);
-}
-
 .members-invitation-code .btn-back-invite {
     border: none;
-    padding: 0 3px;
     background: none;
-    margin-left: 5px;
 }
 
 .btn-back-invite i {

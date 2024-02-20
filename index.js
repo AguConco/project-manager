@@ -37,21 +37,21 @@ const port = process.env.PORT || 4000;
 
 // Configuración de cors
 
-const corsOptions = {
-    origin: function (origin, callback) {
-        const dominiosPermitidos = [
-            "http://localhost:3000",
-            "http://localhost:3001",
-            "http://169.254.111.168:3000",
-            "https://agustin-concollato.000webhostapp.com"
-        ];
+const corsOrigin = function (origin, callback) {
+    const dominiosPermitidos = [
+        "http://localhost:3000",
+        "http://169.254.111.168:3000"
+    ];
 
-        if (!origin || dominiosPermitidos.indexOf(origin) !== -1) {
-            callback(null, true);
-        } else {
-            callback(new Error("Acceso no permitido por CORS"));
-        }
-    },
+    if (!origin || dominiosPermitidos.indexOf(origin) !== -1) {
+        callback(null, true);
+    } else {
+        callback(new Error("Acceso no permitido por CORS"));
+    }
+}
+
+const corsOptions = {
+    origin: corsOrigin,
     methods: "OPTIONS, GET, PUT, POST, DELETE",
     allowedHeaders: "Content-Type",
 };
@@ -61,11 +61,12 @@ app.use(cors(corsOptions));;
 // Conexión a la base de datos mysql
 
 // const dbConfig = {
-//     host: "roundhouse.proxy.rlwy.net",
-//     user: "root",
-//     password: "21ec-B5Af5b31b6E5GhgGDef4hD6aHdg",
-//     database: "railway",
-//     port: 18421
+//     host: process.env.DB_HOST,
+//     user: process.env.DB_USER,
+//     password: process.env.DB_PASSWORD,
+//     database: process.env.DB_NAME,
+//     charset: 'utf8mb4',
+//     port: 3306
 // }
 
 const dbConfig = {
@@ -98,7 +99,12 @@ app.use('/task', task)
 // Configuración de websocket
 
 const server = http.createServer(app);
-const configureSocket = require('./sockets/socketConfig')
+const {
+    configureSocket,
+    configureSocketVideocall,
+    configureSocketChat
+} = require('./sockets/socketConfig')
+const socketIoInstance = configureSocket(server)
 const {
     getMembers,
     notifications,
@@ -106,7 +112,6 @@ const {
 } = require('./sockets/eventMembersSocket');
 const { getListStages, getStage, getTasks } = require('./sockets/eventStageSocket')
 
-const socketIoInstance = configureSocket(server)
 
 getMembers(socketIoInstance)
 notifications(socketIoInstance)
@@ -117,28 +122,15 @@ getTasks(socketIoInstance)
 
 // videollamada
 
-const socketIo = require('socket.io');
-const videoIo = socketIo(server, {
-    path: '/videocall',
-    cors: {
-        origin: function (origin, callback) {
-            const dominiosPermitidos = [
-                "http://localhost:3000",
-                "http://169.254.111.168:3000",
-                "https://agustin-concollato.000webhostapp.com"
-            ];
-
-            if (!origin || dominiosPermitidos.indexOf(origin) !== -1) {
-                callback(null, true);
-            } else {
-                callback(new Error("Acceso no permitido por CORS"));
-            }
-        },
-    }
-})
-
+const videoIo = configureSocketVideocall(server)
 const { video } = require('./sockets/videoSocket')
 video(videoIo)
+
+// chat
+
+const chatIo = configureSocketChat(server)
+const { chat } = require('./sockets/chat')
+chat(chatIo)
 
 // Módulos que se exportan
 

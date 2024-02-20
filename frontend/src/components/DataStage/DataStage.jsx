@@ -9,6 +9,7 @@ export const DataStage = ({ setNewStage, setMessage }) => {
 
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
+    const [color, setColor] = useState('#aaaaaa')
 
     const maxLetterName = 50
     const maxLetterDescription = 500
@@ -27,10 +28,14 @@ export const DataStage = ({ setNewStage, setMessage }) => {
         setMessage(null)
     }
 
+    const changeColor = (e) => {
+        setColor(e.target.value)
+    }
+
     const newStage = (e) => {
         e.preventDefault()
 
-        const data = { name, id: generateId(), idProject, description }
+        const data = { name, id: generateId(), idProject, description, color }
 
         createStage(data)
             .then(e => e.json())
@@ -48,9 +53,13 @@ export const DataStage = ({ setNewStage, setMessage }) => {
             <span className="counter-leter">{name.length}/50</span>
             <textarea tabIndex={2} placeholder="Descripción" onChange={changeDescription} value={description} />
             <span className="counter-leter">{description.length}/500</span>
+            <div>
+                <input type="color" onChange={changeColor} />
+                <span className="color-name" style={name ? { color, borderColor: color, padding: "5px 10px" } : {}}>{name}</span>
+            </div>
             <div className="container-btn-stage">
-                <button type="button" tabIndex={4} onClick={() => setNewStage(false)}><i className="fa-solid fa-times"></i></button>
-                <button type="submit" tabIndex={3}>Agregar</button>
+                <button type="button" tabIndex={5} onClick={() => setNewStage(false)}><i className="fa-solid fa-times"></i></button>
+                <button type="submit" tabIndex={4}>Agregar</button>
             </div>
         </form>
     )

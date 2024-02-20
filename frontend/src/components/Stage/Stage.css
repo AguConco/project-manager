@@ -4,13 +4,13 @@
 
 .list-stages {
     display: flex;
-    justify-content: flex-start;
-    gap: 15px;
-    align-items: center;
+    gap: 20px;
+    align-items: start;
     margin-top: 20px;
     padding: 0 20px 10px;
     width: calc(100vw - 320px);
     overflow-x: auto;
+    height: calc(100vh - 170px);
 }
 
 .list-stages .container-loading {
@@ -31,90 +31,17 @@
     background: var(--grey-light-2);
 }
 
-.create-new-stage {
-    border: 2px dashed var(--grey-light-2);
-    border-radius: 10px;
-    height: 130px;
-    width: 260px;
-    min-width: 260px;
-    text-align: center;
-    line-height: 130px;
-    font-size: 18px;
-    background: none;
-    cursor: pointer;
-}
-
-.container-new-stage {
-    position: absolute;
-    background: var(--white);
-    top: 0;
-    left: 0;
-    z-index: 100;
-    padding-left: 20px;
-    border-radius: 0 10px 10px 0;
-}
-
-.container-new-stage form {
-    border-radius: 10px;
-    border: 1px solid var(--grey-light-2);
-    overflow: hidden;
-    width: 400px;
-    box-shadow: 0 5px 10px #00000020;
-}
-
-.container-new-stage input {
-    width: 100%;
-    padding: 10px 50px 10px 10px;
-    border: none;
-    outline: none;
-    font-size: 14px;
-}
-
-.container-new-stage textarea {
-    font-size: 14px;
-    width: 100%;
-    height: 120px;
-    resize: none;
-    padding: 7px 10px;
-    border: none;
-    outline: none;
-}
-
-.counter-leter {
-    font-size: 12px;
-    color: var(--grey-light-1);
-    display: block;
-    text-align: end;
-}
-
-.container-new-stage .counter-leter:nth-child(2) {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: var(--white);
-    backdrop-filter: blur(3px);
-}
-
-.container-new-stage .counter-leter:nth-child(4) {
-    padding: 5px 10px;
-}
-
-
-.create-new-stage:hover,
-.stage:hover {
-    box-shadow: 0 3px 10px #00000020;
-}
-
 .stage {
-    height: 130px;
-    width: 260px;
-    min-width: 260px;
+    height: auto;
+    width: 300px;
+    min-width: 300px;
     border-radius: 10px;
-    border: 1px solid var(--grey-light-2);
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding: 10px;
+    background: var(--grey-light-3  );
 }
 
 .stage a {
@@ -124,47 +51,47 @@
 }
 
 .stage h2 {
-    max-width: 90%;
+    max-width: 200px;
     text-overflow: ellipsis;
     overflow: hidden;
     text-wrap: nowrap;
     font-size: 16px;
-    margin-bottom: 5px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--grey-light-1);
+    display: inline-block;
+    background: #ffffff;
+    font-weight: 300;
+}
+
+.stage span {
+    display: block;
 }
 
 .stage p {
-    font-size: 13px;
+    font-size: 14px;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     pointer-events: none;
+    display: block;
+    margin: 10px 0;
     word-wrap: break-word;
 }
 
 .stage span {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    font-size: 10px;
-    height: 15px;
-    width: 15px;
-    border-radius: 50%;
-    background: var(--grey-dark-3);
-    text-align: center;
-    line-height: 15px;
-    color: #fff;
+    font-size: 14px;
 }
 
 .options-stage {
     display: flex;
     justify-content: flex-end;
     gap: 3px;
-    opacity: 0;
     transition: .3s;
     position: absolute;
     right: 10px;
-    bottom: 10px;
+    top: 10px;
 }
 
 
@@ -181,8 +108,4 @@
 
 .options-stage button:hover {
     background: var(--grey-light-2);
-}
-
-.stage:hover .options-stage{
-    opacity: 1;
 }

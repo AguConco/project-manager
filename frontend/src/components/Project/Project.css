@@ -3,7 +3,7 @@
     border-radius: 10px;
     border: 1px solid var(--grey-light-2);
     margin: 60px auto;
-    height: 80px; 
+    height: 80px;
     width: 350px;
     display: flex;
     align-items: center;
@@ -17,12 +17,17 @@
 .header-project {
     padding: 0 20px;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
+    flex-direction: column;
+    margin-bottom: 40px;
+}
+
+.header-project>div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     height: 60px;
-    max-height: 60px;
-} 
+}
 
 .name-project {
     font-size: 28px;
@@ -32,32 +37,103 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
+    position: relative;
+    gap: 20px;
+}
+
+.create-new-stage {
+    border-radius: 10px;
+    cursor: pointer;
+    padding: 10px 15px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    border: 1px solid;
+}
+
+.container-new-stage {
+    position: absolute;
+    background: var(--white);
+    top: 0;
+    left: 0;
+    z-index: 100;
+    border-radius: 0 10px 10px 0;
+}
+
+.container-new-stage form {
+    border-radius: 10px;
+    border: 1px solid var(--grey-light-2);
+    overflow: hidden;
+    width: 400px;
+    box-shadow: 0 5px 10px #00000020;
+}
+
+.container-new-stage input[type="text"] {
+    width: 100%;
+    padding: 10px 50px 10px 10px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+}
+
+.container-new-stage input[type="color"], .container-stage input[type="color"] {
+margin: 10px;
+}
+
+.color-name {
+    position: relative;
+    top: -5px;
+    margin-bottom: 10px;
+    display: inline-block;
+    border: 1px solid #fff;
+    border-radius: 20px;
+}
+
+.container-new-stage textarea {
+    font-size: 14px;
+    width: 100%;
+    height: 120px;
+    resize: none;
+    padding: 7px 10px;
+    border: none;
+    outline: none;
+}
+
+.counter-leter {
+    font-size: 12px;
+    color: var(--grey-light-1);
+    display: block;
+    text-align: end;
+}
+
+.container-new-stage .counter-leter:nth-child(2) {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--white);
+    backdrop-filter: blur(3px);
+}
+
+.container-new-stage .counter-leter:nth-child(4) {
+    padding: 5px 10px;
+}
+
+.container-new-stage .message-error {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
 }
 
 .nav-project ul {
     display: flex;
+    align-items: center;
     gap: 20px;
 }
 
-.nav-project ul a {
-    border-radius: 10px;
-    font-size: 16px;
-    padding: 5px 10px;
-}
-
-.nav-project ul a i {
-    margin-right: 5px;
-}
-
-.nav-project-selected {
-    background: var(--grey-dark-3);
-    color: var(--white);
-}
-
-.nav-project-selected i {
-    color: var(--white);
-    font-size: 15px;
+.info-project {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
 .progress-project {
